@@ -33,7 +33,7 @@ function NavBar() {
             color: "red",
         }}
         >
-        journal
+        Journal
         </NavLink>
 
       </div>

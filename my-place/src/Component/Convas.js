@@ -3,21 +3,22 @@ import React, {useRef, useEffect } from "react";
 function Canvas(props) {
      let canvasRef = useRef(null)
 
-    var mouse = {
-        x: undefined,
-        y: undefined
-    }
-
-    var maxRadius = 40;
-    var minRadius = 5;
-
-    useEffect(() => {
-        const canvas = canvasRef.current
-        const c = canvas.getContext('2d')
-        
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-        
+     
+     useEffect(() => {
+         const canvas = canvasRef.current
+         const c = canvas.getContext('2d')
+         
+         canvas.width = window.innerWidth
+         canvas.height = window.innerHeight
+         
+         var mouse = {
+             x: undefined,
+             y: undefined
+         }
+     
+         var maxRadius = 40;
+         var minRadius = 15;
+         
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.x;
             mouse.y = e.y
@@ -65,7 +66,7 @@ function Canvas(props) {
                     if( this.radius < maxRadius){
                         this.radius +=1;
                     }
-                }else if (this.radius > this.minRadius){ 
+                }else if (this.radius > minRadius){ 
                     this.radius -=1;
                 }
                 this.draw();
@@ -74,7 +75,7 @@ function Canvas(props) {
 
         var circleArray = []
         function circleGenerator() {
-            for(var i = 0; i < 300; i++) {
+            for(var i = 0; i < 200; i++) {
                 var radius = Math.random() * 15 + 1;
                 var x = Math.random() * (canvas.width - radius * 2 ) + radius;
                 var y = Math.random() * (canvas.height - radius * 2) + radius;

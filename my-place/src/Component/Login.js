@@ -27,7 +27,7 @@ function Login (props) {
             localStorage.token = user.token
 
             if(localStorage.token !== "undefined"){
-                props.HandleLoignUser(user.user)
+                props.handleLoignUser(user.user)
                 props.history.push('/homepage')
             }else {
                 alert("Username or password is not correct")
@@ -36,10 +36,10 @@ function Login (props) {
     }
 
     return (
-        <body className="login-page">
+        <div className="login-page">
             <div className="switch"><h2>Sign up？</h2></div>
             <input type="checkbox" id="change" />
-            <label for="change" onClick={() => handleSignupClick()}>Sign up</label>
+            <label  onClick={() => handleSignupClick()}>Sign up</label>
                 <div className="login">
                     <form className="login" onSubmit={(e) => handleLogin(e)}>
                         <h1>Welcome Back</h1>
@@ -49,11 +49,11 @@ function Login (props) {
                     </form>
                 </div>
                 {
-                Object.keys(props.loginUser).length == 0
+                Object.keys(props.loginUser).length === 0
                 ?<Canvas/>
                 :null
                 }
-        </body>
+        </div>
     ) 
 
 }

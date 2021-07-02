@@ -88,6 +88,7 @@
   transform-style: preserve-3d;
   transform: translate3d(0, 0, 1px);
 }
+@import '~antd/dist/antd.css';
 
 .login-page .login input:nth-child(-n+3){
   margin: 20px 0;
@@ -112,4 +113,16 @@
   color: #1f2029;
   text-decoration: none;
   padding-right: 20px;
+}
+
+
+.ant-upload.ant-upload-select-picture-card {
+  width: 250px;
+  height: 250px;
+
+}
+
+.ant-upload-list-picture-card-container {
+  width: 250px;
+  height: 250px;
 }

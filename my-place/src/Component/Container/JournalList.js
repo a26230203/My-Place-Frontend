@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import JournalEdit from './JouranlEdit';
 
 function JournalList(props) {
+  const date = new Date(props.journal.created_at)
 
     const handleEdit = () => {
-        <JournalEdit journal={props.journal}/>
+      props.handleCurrentJouranl(props.journal)
         props.history.push('./journaledit')
     }
 
-
+    const handlClickTitle = () => {
+      props.handleCurrentJouranl(props.journal)
+      props.history.push('./journaldetail')
+    }
 
     return (
         <div className="journal-list">
-          <li>{props.journal.title}</li>
-          <li>{props.journal.created_at}</li>
-          <button onClick={() => handleEdit()}>edit</button>
-          <button onClick={() => props.handleDelete(props.journal)}>delete</button>
+          {props.journal.title !== ""
+          ?<li onClick={() => handlClickTitle()}>{props.journal.title}</li>
+          :<li onClick={() => handlClickTitle()}>No Title</li>
+          }
+          <li>{date.toLocaleDateString()}</li>
+          <button onClick={() => handleEdit()}>Edit</button>
+          <button onClick={() => props.handleDelete(props.journal)}>Delete</button>
         </div>
     );
   }

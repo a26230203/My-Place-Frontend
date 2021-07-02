@@ -1,28 +1,37 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import React, {useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Login from './Component/Login'
+import SignUp from './Component/SignUp'
 import HomePage from './Component/HomePage'
 import Journal from './Component/Journal'
 import JournalEdit from './Component/Container/JouranlEdit';
-import SignUp from './Component/SignUp'
+import JournalDraft from './Component/Container/JournalDraft';
+import JournalDetial from './Component/Container/JournalDetail'
+import Photo from './Component/Photo';
+import Test from './Component/test'
 
 
 
 function App() {
   const [loginUser, setLoginUser] = useState({})
+  const [currentJouranl, setCurrentJouranl] = useState({})
 
-  const HandleLoignUser = (LoginUserObj) => {
+  const handleLoignUser = (LoginUserObj) => {
     setLoginUser(LoginUserObj)
   }
 
+  const handleCurrentJouranl = (jouranlObj) => {
+    setCurrentJouranl(jouranlObj)
+  }
+ 
 
   return (
     <Router>
     <div className="App">
       <Switch>
       <Route exact path="/" component={(props) => (
-        <Login {...props} HandleLoignUser={HandleLoignUser} loginUser={loginUser}/> 
+        <Login {...props} handleLoignUser={handleLoignUser} loginUser={loginUser}/> 
         )} 
         />
       <Route exact path="/signup" component={(props) => (
@@ -35,14 +44,35 @@ function App() {
         />
 
       <Route exact path="/journal" component={(props) => (
-        <Journal {...props} loginUser={loginUser}/> 
+        <Journal {...props} loginUser={loginUser} handleCurrentJouranl={handleCurrentJouranl}/> 
+        )} 
+        />
+
+      <Route exact path="/journaldraft" component={(props) => (
+        <JournalDraft {...props} loginUser={loginUser}/> 
+        )} 
+        />
+      <Route exact path="/journaldetail" component={(props) => (
+        <JournalDetial {...props} loginUser={loginUser} currentJouranl={currentJouranl}/> 
         )} 
         />
 
       <Route exact path="/journaledit" component={(props) => (
-        <JournalEdit {...props} /> 
+        <JournalEdit {...props} currentJouranl={currentJouranl} loginUser={loginUser}/> 
         )} 
-        />  
+        />
+      
+      <Route exact path="/photo" component={(props) => (
+        <Photo {...props}  loginUser={loginUser}/> 
+        )} 
+        />
+
+
+        <Route exact path="/test" component={(props) => (
+        <Test /> 
+        )} 
+        />
+ 
 
       </Switch>
     </div>
