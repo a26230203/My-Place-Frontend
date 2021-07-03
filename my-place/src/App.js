@@ -9,6 +9,7 @@ import JournalEdit from './Component/Container/JouranlEdit';
 import JournalDraft from './Component/Container/JournalDraft';
 import JournalDetial from './Component/Container/JournalDetail'
 import Photo from './Component/Photo';
+import Album from './Component/Album';
 import Test from './Component/test'
 
 
@@ -67,11 +68,16 @@ function App() {
         )} 
         />
 
-
-        <Route exact path="/test" component={(props) => (
-        <Test /> 
+      <Route exact path="/album" component={(props) => (
+        <Album {...props}  loginUser={loginUser}/> 
         )} 
         />
+
+
+        {/* <Route exact path="/test" component={(props) => (
+        <Test /> 
+        )}  */}
+        {/*    */}
  
 
       </Switch>
