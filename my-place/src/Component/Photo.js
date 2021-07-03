@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Upload, Modal, Form, Button, Image, Input, Select  } from 'antd'
+import { Card, Upload, Modal, Form, Button, Image, Input, Select, message  } from 'antd'
 import {  PlusOutlined } from '@ant-design/icons';
 import Navbar from './NavBar'
 import PhotoList from "./Container/PhotoList";
@@ -39,6 +39,17 @@ export default class Photo extends React.Component {
       .then(album => this.setState({album}))
     }
 
+    //go to photo route
+    handlClickPhoto = () => {
+      this.props.history.push('/photo')
+    }
+
+
+    //go to album route
+    handlClickAlbum = () => {
+      this.props.history.push('/album')
+    }
+
     // handle diplay photo list
     handleDisplay = () => {
       this.setState({
@@ -57,7 +68,7 @@ export default class Photo extends React.Component {
     //handle cancel of upload
     handleCancel = () => this.setState({ previewVisible: false });
 
-    //handle preview of upload
+    //handle preview of uploadalbumName
     handlePreview = async file => {
       if (!file.url && !file.preview) {
         file.preview = await getBase64(file.originFileObj);
@@ -70,7 +81,6 @@ export default class Photo extends React.Component {
       });
     };
 
-  
     beforeUpload = (file) => {
       const {upFiles} = this.state;
       upFiles.push(file);
@@ -80,11 +90,22 @@ export default class Photo extends React.Component {
     //handle submit upload
     handleSubmit = () => {
       const {upFiles} = this.state;
+      let album_id = null;
+      if(this.state.albumName !== "") {
+        const findAlbum = this.state.album.find(album => album.name.toLowerCase() == this.state.albumName.toLowerCase())
+        if(findAlbum === undefined) {
+          message.info("Ablum is not exist, please creat a album")
+        }else{
+          album_id = findAlbum.id
+          console.log(album_id)
+        }
+      }
       let formData = new FormData();
        upFiles.forEach((file) => {
         formData.append('image', file);
         formData.append('name', file.name);
-         formData.append('user_id', this.props.loginUser.id);
+        formData.append('user_id', this.props.loginUser.id);
+        formData.append('album_id', album_id);
          fetch("http://localhost:3000/photoupload", {
            method: "POST",
            body: formData
@@ -112,28 +133,37 @@ export default class Photo extends React.Component {
       })
     }
 
-    AddPhotoToAlbum = (photoObj) => {
-      fetch(`http://localhost:3000/photos/${photoObj.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        album_id: ""
-      }),
-    })
+    //Handle albun name 
+    handleAlbumName = (e) => {
+        this.setState({
+          albumName: e.target.value
+        })
+    }
+
+    //Add photo to album
+    AddPhotoToAlbum = (photoObj, albumId) => {
+        if(albumId == "") {
+          this.handleConfirm()
+        }else{
+            fetch(`http://localhost:3000/photos/${photoObj.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              album_id: albumId
+            }),
+          })
+            .then(res => {
+                message.success('Photo added to album');
+            })
+        }
     }
 
     //Display album form
     handleCreatalbum = () => {
       this.setState({
         albumForm : !this.state.albumForm
-      })
-    }
-
-    handleAlbumName = (e) => {
-      this.setState({
-        albumName: e.target.value
       })
     }
 
@@ -150,24 +180,25 @@ export default class Photo extends React.Component {
         },
         body: JSON.stringify(newAlbun),
       })
-      .then(res => res.json())
-      this.handleCreatalbum()
-      this.componentDidMount()
+      .then(res => {
+        message.success(' Album is created')
+        this.handleCreatalbum()
+        this.componentDidMount()
+      })
     }
 
 
 
     render() {
       const { previewVisible, previewImage, fileList, previewTitle } = this.state;
-      console.log(this.state.album);
       return (
       <div className="photo">
         { Object.keys(this.props.loginUser).length > 0 
           ?<div>
             <Navbar />
             <div className="photo-subnav">
-                <li>Album</li>
-                <li>Photos</li>
+                <li onClick={() => this.handlClickPhoto()}>Photos</li>
+                <li onClick={() => this.handlClickAlbum()}>Album</li>
             </div>
             <div className="photo-btn">
               <button onClick={() => this.handleDisplay()}>Upload Photo</button>
@@ -180,31 +211,28 @@ export default class Photo extends React.Component {
               value={this.state.albumName}
               onChange={(e) => this.handleAlbumName(e)}/>
               <Button type="primary" shape="round" onClick={() => this.handleConfirm()}>Confirm</Button>
+              <Button type="primary" shape="round" onClick={() => this.handleConfirm()}>Cancel</Button>
             </Form>
             :null
           }
             {this.state.display
               ?<div>
-                {this.state.album.length > 0
-                  ?<div>
-                    <Select defaultValue={this.state.album[0].name} style={{ width: 120 }} onChange={(e) => this.handleAlbumName(e)}>
-                      {this.state.album.map(album => (
-                        <Option key={album.id}>{album.name}</Option>
-                      ))}
-                    </Select>
-                  </div>
-                  :null
-                }
                 <Image.PreviewGroup>
                 {
                 this.state.photos.map(photo => {
-                    return <PhotoList photo={photo} key={photo.id} handleDelete={this.handleDelete} album={this.album}/>
+                    return <PhotoList photo={photo} key={photo.id} handleDelete={this.handleDelete} album={this.state.album} 
+                    AddPhotoToAlbum={this.AddPhotoToAlbum}/>
                   })
                 }
                  </Image.PreviewGroup>
               </div>
             :<Form >
             <Card title='Photo Upload'>
+                  <Input addonBefore="Album Title:" 
+                    style={{width: '500px'}} 
+                    value={this.state.albumName}
+                    placeholder="Option"
+                    onChange={(e) => this.handleAlbumName(e)}/>
                   <Upload
                     listType='picture-card'
                     fileList={fileList}

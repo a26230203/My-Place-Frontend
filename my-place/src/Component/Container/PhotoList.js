@@ -1,30 +1,50 @@
 import { Image, Select  } from 'antd';
-import { DeleteFilled, FolderAddFilled} from '@ant-design/icons';
+import { DeleteFilled, FolderAddFilled, CloseCircleFilled} from '@ant-design/icons';
+import { useState } from 'react';
 
 const { Option } = Select;
 function PhotoList(props) {
 
- const handleChange = () => {
+ const [displayOption, setDisplayOption] = useState(false)
 
+ const handleDisplayOption = () => {
+  setDisplayOption(!displayOption)
+ }
+
+ const handleChange = (value) => {
+    props.AddPhotoToAlbum(props.photo, value)
  }
 
     return (
       <div className="photo-List">
-            {/* <Image.PreviewGroup> */}
                 <Image
                 width={300}
                 height={200}
                 src={props.photo.image}
                 />
-            {/* </Image.PreviewGroup> */}
-            <DeleteFilled style={{fontSize: "24px"}} onClick={() => props.handleDelete(props.photo)}/>
-            <FolderAddFilled style={{fontSize: "24px"}}/>
-            <Select defaultValue="" style={{ width: 120 }} onChange={() => handleChange()}>
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="Yiminghe">yiminghe</Option>
-          </Select>
-
+            {props.handleRemoveFromAblum
+            ? <DeleteFilled style={{fontSize: "24px"}} 
+            onClick={() => props.handleRemoveFromAblum(props.photo)}/>
+            :<DeleteFilled style={{fontSize: "24px"}} 
+            onClick={() => props.handleDelete(props.photo)}/>
+            }     
+            {props.AddPhotoToAlbum?
+            <FolderAddFilled style={{fontSize: "24px"}} onClick={() => handleDisplayOption()}/>
+             :null
+            } 
+            {displayOption
+            ?<div>
+            <Select defaultValue='disabled' style={{ width: 200, alignItems:'center' }} onChange={handleChange}>
+              <Option value='disabled' disabled >Select Album</Option>
+                {props.album.map(album => {
+                  return  <Option value={album.id} key={album.id}>{album.name}</Option>
+                })}
+                <Option value="">Create New Ablum</Option>
+            </Select>
+            <CloseCircleFilled onClick={() => handleDisplayOption()}/>
+            </div>    
+            :null
+          }
       </div>
 
     );
