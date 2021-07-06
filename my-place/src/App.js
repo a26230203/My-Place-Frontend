@@ -10,6 +10,7 @@ import JournalDraft from './Component/Container/JournalDraft';
 import JournalDetial from './Component/Container/JournalDetail'
 import Photo from './Component/Photo';
 import Album from './Component/Album';
+import Sticky from './Component/Sticky';
 import Test from './Component/test'
 
 
@@ -70,6 +71,11 @@ function App() {
 
       <Route exact path="/album" component={(props) => (
         <Album {...props}  loginUser={loginUser}/> 
+        )} 
+        />
+
+      <Route exact path="/sticky" component={(props) => (
+        <Sticky {...props}  loginUser={loginUser}/> 
         )} 
         />
 
