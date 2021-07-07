@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Editor } from '@tinymce/tinymce-react'
+import { Input } from 'antd';
 import Navbar from './NavBar'
 import JournalList from './Container/JournalList'
 
@@ -47,6 +48,9 @@ export default class Journal extends Component {
     })
     .then(res => res.json())
     .then(() => {
+      this.setState({
+        content: ""
+      })
       this.componentDidMount()
       this.handleDisplay() 
     })
@@ -93,24 +97,6 @@ export default class Journal extends Component {
       this.setState({content})
   }
 
-  // upload = (data, success, failure ) => {
-  //   fetch('http://localhost:3000/upload', {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "image/png",
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //   .then(res => {
-  //     console.log(res.data.data);
-  //     const data = res.data.data.url
-  //     success(data)
-  //   }).catch(error => {
-  //     failure(error)
-  //   })
-  // }
-
-
   render() {
     var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     return (
@@ -135,11 +121,13 @@ export default class Journal extends Component {
             </div>
             :<div className="Editor">
             <h2>Title</h2>
-             <input className="title"
+             <Input className="title"
+                style={{width: 800}}
                 placeholder="Wirte your title here"
                 type="text"
                 value = {this.state.title}
-                  onChange={(e) => this.setState({title: e.target.value})}/>
+                  onChange={(e) => this.setState({title: e.target.value})}>
+              </Input>
             <Editor 
               apiKey="ubuznhjw161y8fw2jyqsp5wsyl72c4d7pnjdvwi9rm7c0m8s"
               inline={false}
@@ -153,25 +141,6 @@ export default class Journal extends Component {
                   fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
                   placeholder: "Write your content here",
                   relative_urls: false,
-                  // file_picker_types: 'image',
-                  // images_upload_url: 'http',
-                  // image_advtab: true,
-                  // image_uploadtab: true,
-                  // images_upload_handler: (blobInfo, success, failure)=>{
-                  //   var formData;
-                  //   var file = blobInfo.blob();
-                  //   formData = new FormData();
-                  //   formData.append('file', file, file.name )
-
-                  //   this.upload(formData, success, failure)
-                    // .then(res => {
-                    //   console.log(res.data.data);
-                    //   const data = res.data.data.url
-                    //   success(data)
-                    // }).catch(error => {
-                    //   failure(error.data.message)
-                    // })
-                  // }
                   }}
                   onEditorChange={this.handleEditorChnage}
                 />  
@@ -181,33 +150,6 @@ export default class Journal extends Component {
                       <button onClick={() => this.handleSave()}>Save as Draft</button>
                     </div>
                 </div>
-          
-
-
-
-
-
-
-
-
-          //   <div className="writing">
-          //     <h2>Title</h2>
-          //     <input className="title"
-          //       placeholder="Please enter your title"
-          //       type="text"
-          //       value = {this.state.title}
-          //       onChange={(e) => this.setState({title: e.target.value})} />
-          //     <h2>Content</h2>
-          //     <textarea className="content"
-          //       placeholder="Please enter your content"
-          //       value = {this.state.content}
-          //       onChange={(e) => this.setState({content: e.target.value})} />
-          //     <div className="btn">
-          //     <button onClick={() => this.handlePublish()}>Publish</button>
-          //     <button onClick={() => this.handleDisplay()}>Cancel</button>
-          //     <button onClick={() => this.handleSave()}>Save as Draft</button>
-          //   </div>
-          // </div>
           }
           </div>
            :this.props.history.push('/')

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 function NavBar() {
     return (
-      <div >
+      <div className="Main-navbar">
         <NavLink
         className="nav-bar"
         to="/homepage"
@@ -35,7 +35,6 @@ function NavBar() {
         >
         Journal
         </NavLink>
-
       </div>
     );
   }

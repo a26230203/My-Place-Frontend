@@ -11,6 +11,7 @@ import JournalDetial from './Component/Container/JournalDetail'
 import Photo from './Component/Photo';
 import Album from './Component/Album';
 import Sticky from './Component/Sticky';
+import Music from './Component/Music';
 import Test from './Component/test'
 
 
@@ -80,13 +81,16 @@ function App() {
         />
 
 
-        {/* <Route exact path="/test" component={(props) => (
+        <Route exact path="/test" component={(props) => (
         <Test /> 
-        )}  */}
-        {/*    */}
+        )}  
+        />
  
 
       </Switch>
+      {Object.keys(loginUser).length > 0
+        ?<Music />
+        :null}
     </div>
     </Router>
   );
