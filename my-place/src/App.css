@@ -224,14 +224,14 @@
 }
 
 
-.sticky {
+.note {
   display: flex;
   flex-direction: column;
   text-align: center;
   width: 250px;
 }
 
-.sticky textarea {
+.note textarea {
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid white;
   min-width: 100%;
@@ -241,7 +241,7 @@
   outline: none;
 }
 
-.sticky button {
+.note button {
   width: 100%;
   background-color: #eec643;
   cursor: pointer;
@@ -250,7 +250,7 @@
 
 }
 
-.sticky button:hover {
+.note button:hover {
   background-color: crimson;
   color: white;
 }
@@ -273,7 +273,7 @@
   overflow-y: scroll;
 }
 
-.sticky-editor {
+.note-editor {
   resize: none;
   font-family: Arial, Helvetica, sans-serif;
   white-space: pre-wrap;
@@ -782,8 +782,26 @@
   color: crimson;
 }
 
+.music-cover {
+  margin-top: 20px;
+  margin-left: 600px;
+
+}
+
+.music-cover img {
+  border-radius: 50%;
+  overflow:hidden;
+  animation: rotation 8s infinite linear; 
+}
+
+.music-cover:hover {
+  transform: scale(1.1)
+}
+
 .music-list-li-text {
+  width: 100px;
   font-size: 12px;
+  padding-right: 50px;
   vertical-align: middle;
 }
 
@@ -818,4 +836,72 @@
   text-align: center;
 }
 
+.upload-title {
+  position: absolute;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 1000px;
+  top: 44.7px;
+  left: 50%;
+  height: 40px;
+  margin-left: -500px;
+  padding-top: 10px;
+  padding-left: 20px;
+  color: #fff;
+  font-size: 20px;
+  text-align: left;
+  background: #000;
+  z-index: 1;
+}
 
+.add-music {
+  position: absolute;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 1000px;
+  top: 70px;
+  left: 50%;
+  height: 380px;
+  margin-left: -500px;
+  padding-top: 10px;
+  background: #333;
+  bottom: 52px;
+}
+
+.close-add {
+  margin-left: 900px;
+  margin-bottom: -200px;
+  color: white;
+}
+
+.add-upload:hover {
+  color: #000;
+  background-color: rgb(216, 41, 50);
+} 
+
+.add-submit {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 18px;
+  background: #fff;
+  border-radius: 8%;
+}
+
+.add-submit:hover {
+  color: #000;
+  background-color: rgb(216, 41, 50);
+}
+
+.add-input {
+  width: 500px;
+  border-style: double;
+  border-radius: 20%;
+  margin: auto auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ 
+}

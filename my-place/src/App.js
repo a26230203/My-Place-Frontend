@@ -10,7 +10,7 @@ import JournalDraft from './Component/Container/JournalDraft';
 import JournalDetial from './Component/Container/JournalDetail'
 import Photo from './Component/Photo';
 import Album from './Component/Album';
-import Sticky from './Component/Sticky';
+import Note from './Component/Note';
 import Music from './Component/Music';
 import Test from './Component/test'
 
@@ -75,8 +75,8 @@ function App() {
         )} 
         />
 
-      <Route exact path="/sticky" component={(props) => (
-        <Sticky {...props}  loginUser={loginUser}/> 
+      <Route exact path="note" component={(props) => (
+        <Note {...props}  loginUser={loginUser}/> 
         )} 
         />
 
@@ -89,7 +89,7 @@ function App() {
 
       </Switch>
       {Object.keys(loginUser).length > 0
-        ?<Music />
+        ?<Music loginUser={loginUser}/>
         :null}
     </div>
     </Router>

@@ -1,51 +1,39 @@
 import React, { Component } from "react";
-import { Upload } from 'antd';
+import { Upload, Input, Button } from 'antd';
+import {  CloseOutlined, UploadOutlined } from '@ant-design/icons';
 import _ from "lodash";
 import "../static/style.css";
 
 
-const musicList = [
-  {
-    id: "1",
-    title: "Mariage d'amour ",
-    info: "Paul de Senneville ",
-    resource: "http://m7.music.126.net/20210708034809/6c94250fbe265d93b04f11dab52132cf/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3463824034/c986/8c67/7d20/648bf98985577cfa9b6c89ed8ebcdd0f.mp3",
-    time: "5:00",
-    img:
-      "http://singerimg.kugou.com/uploadpic/softhead/400/20160913/20160913140233132.jpg"
-  },
-  {
-    id: "2",
-    title: "Kiss The Rain ",
-    info: "Yiruma",
-    resource: "https://sharefs.ali.kugou.com/202107080001/570d32e1e386eacd9a133fa2e4d56f12/G203/M07/0B/0F/a4cBAF5d-ziAQNadAEnQf8bIoLs857.mp3",
-    time: "04:50",
-    img:
-      "http://singerimg.kugou.com/uploadpic/softhead/400/20160913/20160913140233132.jpg"
-  },
-  {
-    id: "3",
-    title: "My Soul",
-    info: "July",
-    resource: "https://sharefs.ali.kugou.com/202107080002/c0dffd58af5ed3012eceeb2152717ab4/G096/M08/01/09/oA0DAFkb-fqAKdpbADgXpJHizC0506.mp3",
-    time: "04:50",
-    img:
-      "http://singerimg.kugou.com/uploadpic/softhead/400/20160913/20160913140233132.jpg"
-  }]
+
+
+  const props = {
+    action: 'http://localhost:3000/musicpreview'
+  };
+
 
 export default class Music extends Component {
 
     state = {
       isPause: false,
-      musicList: musicList || [],
-      currentMusic: musicList ? musicList[0] : {},
+      musicList: [],
+      currentMusic: {},
       totalTime: "00:00",
       currentTime: "00:00",
       processItemMove: false,
       volumeProcessItemMove: false,
       volumeControl: false,
       playMode: 1,
-      isMusicListShow: false
+      isMusicListShow: false,
+      addMusic: false,
+      placement: 'top',
+      fileList: [],
+      upFiles: [],
+      title: "",
+      author: "",
+      img: "",
+      description: "",
+
     };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -58,6 +46,14 @@ export default class Music extends Component {
   }
 
   componentDidMount() {
+
+    fetch('http://localhost:3000/musics')
+      .then(res => res.json())
+      .then(musicList => this.setState({
+          musicList: musicList,
+          currentMusic: musicList[0]
+      }))
+
     const audio = this.audio;
     audio.addEventListener("canplay", () => {
       const totalTime = parseInt(audio.duration);
@@ -340,29 +336,98 @@ export default class Music extends Component {
   };
 
 
+  titleOnChange = (e) => {
+    this.setState({
+      title: e.target.value
+    })
+  }
+
+  authorOnChange = (e) => {
+    this.setState({
+      author: e.target.value,
+    })
+  }
+
+  imgOnChange = (e) => {
+    this.setState({
+      img: e.target.value,
+    })
+  }
+
+  descriptionOnChnage = (e) => {
+    this.setState({
+      description: e.target.value
+    })
+  }
+
   addPlayList = () => {
-    alert("add musci to playlist");
+
+    if(this.state.isMusicListShow) {
+      this.onMusicList()
+    }
+      this.setState({
+        addMusic: !this.state.addMusic
+      })
   };
+
+
+  submitAddMusic = (e) => {
+    e.preventDefault()
+    const {upFiles, title, author, img, description } = this.state
+    let formData = new FormData();
+    formData.append('music', upFiles[0]);
+    formData.append('user_id', this.props.loginUser.id);
+    formData.append('title', title);
+    formData.append('author', author);
+    formData.append('img', img);
+    formData.append('description', description);
+
+    fetch("http://localhost:3000/musics", {
+      method: "POST",
+      body: formData
+    })
+    .then( res => {
+      this.componentDidMount()
+      this.addPlayList()
+      this.setState({
+        upFiles: [],
+        title: "",
+        author: "",
+        img: "",
+        description: ""
+      })
+    })
+  }
+
+
+  beforeUpload = (file) => {
+    const {upFiles} = this.state;
+    upFiles.push(file);
+    this.setState({upFiles: upFiles});
+  }
+
 
   onMusicList = () => {
     const { isMusicListShow } = this.state;
     this.setState({ isMusicListShow: !isMusicListShow });
+    if(this.state.addMusic) {
+      this.setState({
+        addMusic: !this.state.addMusic
+      })
+    }
   };
 
 
   onDeleteMusic = (e, item) => {
     e.stopPropagation();
-    const { onDeleteMusic } = this.props;
-    if (onDeleteMusic) {
-      onDeleteMusic(item.id);
-    }
-  };
-
-  onDeleteAllMusic = () => {
-    const { onDeleteAllMusic } = this.props;
-    if (onDeleteAllMusic) {
-      onDeleteAllMusic();
-    }
+    console.log(item)
+    fetch(`http://localhost:3000/musics/${item.id}`, {
+      method: "DELETE",
+    })
+    .then(res => res.json())
+    .then(() => {
+      this.componentDidMount()
+    })
   };
 
   onMusicListItemClick = id => {
@@ -395,8 +460,9 @@ export default class Music extends Component {
       playMode,
       isMusicListShow
     } = this.state;
-    const { title, info, img, resource, id } = currentMusic || {};
+    const { title, description, img, music, id } = currentMusic || {};
     const { musicList } = this.state;
+    const audio = this.audio;
     let playModeIcon = "";
     switch (playMode) {
       case 1:
@@ -440,7 +506,7 @@ export default class Music extends Component {
               <div className="music-control">
                 <div className="music-info">
                   <span className="title-info">{title}</span>
-                  <span className="author-info">{info}</span>
+                  <span className="author-info">{description}</span>
                 </div>
                 <div className="process-time">
                   <div
@@ -475,9 +541,27 @@ export default class Music extends Component {
               </div>
             </div>
             <div className="right-folder">
-              <Upload>
-                <span className="icon-folder folder"/>
-              </Upload>
+                  <span onClick={() => this.addPlayList()} className="icon-folder folder"/>
+                          {this.state.addMusic
+                                 ?<div>
+                                 <h4 className="upload-title">Upload Music</h4>
+                                  <form className="add-music"
+                                    onSubmit={(e) => this.submitAddMusic(e)}
+                                  >
+                                  <CloseOutlined className="close-add" onClick={() => this.addPlayList()}/>
+                                  <br/>
+                                  <Upload {...props} showUploadList={true} beforeUpload={this.beforeUpload}>
+                                    <Button className="add-upload" icon={<UploadOutlined />}>Upload</Button>    
+                                  </Upload>
+                                  <Input  className="add-input" addonBefore="Title: " onChange={(e) => this.titleOnChange(e)}></Input>
+                                  <Input className="add-input" addonBefore="Author: " onChange={(e) => this.authorOnChange(e)}></Input>
+                                  <Input className="add-input" addonBefore="Image: " onChange={(e) => this.imgOnChange(e)}></Input>
+                                  <Input className="add-input" addonBefore="Description: " onChange={(e) => this.descriptionOnChnage(e)}></Input>
+                                  <button className="add-submit">Submit</button> 
+                                </form>
+                                </div>
+                                :null
+                          }
             </div>
             <div className="right-controler">
               <div
@@ -530,14 +614,9 @@ export default class Music extends Component {
                     className="music-list-head-collect"
                     onClick={this.onCollect}
                   >
-                    <span className="icon-addfile music-list-common-icon" />
+                    <span className="icon-addfile music-list-common-icon" onClick={() => this.addPlayList()}/>
                   </span>
                   <span className="music-list-head-line" />
-                  <span
-                    className="music-list-head-clear"
-                    onClick={this.onDeleteAllMusic}
-                  >
-                  </span>
                   <p className="music-list-head-name">{title}</p>
                   <span className="music-list-head-close">
                     <span
@@ -577,14 +656,14 @@ export default class Music extends Component {
                               </div>
                               <div className="col music-list-li-col-4">
                                 <span className="music-list-li-text">
-                                  {item.info}
+                                  {item.author}
                                 </span>
                               </div>
-                              <div className="col music-list-li-col-5">
-                                <span className="music-list-li-text">
-                                  {item.time}
-                                </span>
-                              </div>
+                                <div className="col music-list-li-col-5">
+                                  <span className="music-list-li-text">
+                                    {item.description}
+                                  </span> 
+                                </div>
                               <div className="col music-list-li-col-6">
                                 <span className="icon-link music-list-action-icon" />
                               </div>
@@ -592,13 +671,14 @@ export default class Music extends Component {
                           );
                         })}
                     </ul>
-                  </div>
+                  </div >
                   <div className="music-cover">
+                        <img src={currentMusic.img} />
                   </div>
                 </div>
               </div>
             )}
-            <audio src={resource} ref={ref => (this.audio = ref)} />
+            <audio src={music} ref={ref => (this.audio = ref)} />
           </div>
         </div>
       </div>

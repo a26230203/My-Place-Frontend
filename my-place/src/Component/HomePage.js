@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Image, Card } from 'antd'
 import Navbar from './NavBar'
+import Weather from "./Weather";
 
 
 
@@ -49,6 +50,7 @@ export default class HomePage extends Component  {
         ?<div>
           <h1>My <span>Place</span></h1>
           <Navbar loginUser={this.props.loginUser}/>
+          <Weather loginUser={this.props.loginUser}/>
                 <h4 className="recent-pohot">Recent Photos</h4>
               <Card className="photo-card">
               <Image.PreviewGroup>

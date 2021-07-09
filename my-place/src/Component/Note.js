@@ -2,53 +2,52 @@ import React, { Component } from "react";
 import { Select } from 'antd';
 import Draggable from 'react-draggable'; 
 import {  CloseOutlined, EditFilled } from '@ant-design/icons';
-import { Editor } from '@tinymce/tinymce-react'
 
 
 const { Option } = Select;
-export default class Sticky extends Component{
+export default class Note extends Component{
 
     state = {
         edit: false,
         userTyping: "",
-        currentSticky: {},
-        stickies: [],
+        currentNote: {},
+        notes: [],
         colors: '#FFCC00',
         x: "", 
         y: ""
     }
     // parseInt((maxHeight - 100) * Math.random())
-    generatorSticky = (text) => {
+    generatorNote = (text) => {
         const maxWidth = window.innerWidth
         const maxHeight = window.innerHeight
         let randX = parseInt((maxWidth - 250) * Math.random())
         let randY = parseInt((maxHeight - 350) * Math.random())
         let background = this.state.colors
-        let sticky = {
+        let note = {
             text,
             background,
             top: randX,
             left: randY
         }
         console.log(randX)
-        return sticky
+        return note
     }
 
 
     addStikcy = (e) => {
         e.preventDefault()
-        let newSticky = this.generatorSticky(e.target[1].value)
+        let newNote = this.generatorNote(e.target[1].value)
 
         this.setState({
             userTyping: "",
-            stickies: [...this.state.stickies, newSticky]
+            notes: [...this.state.notes, newNote]
         })
     }
 
-    deleteSticky = (stickyObj) => {
-        const updateStikcyObj = this.state.stickies.filter(sticky => sticky.id !== stickyObj.id )
+    deleteNote = (noteObj) => {
+        const updateStikcyObj = this.state.notes.filter(note => note.id !== noteObj.id )
         this.setState({
-            stickies: updateStikcyObj
+            notes: updateStikcyObj
         })
     }
 
@@ -69,11 +68,11 @@ export default class Sticky extends Component{
     }
 
     render() {
-        const {currentSticky} = this.state
+        const {currentNote} = this.state
         return(
             <div>
-                <div className="sticky-page" >
-                    <form onSubmit={(e) => this.addStikcy(e)} className="sticky">
+                <div className="note-page" >
+                    <form onSubmit={(e) => this.addStikcy(e)} className="note">
                         <Select defaultValue='Select color' style={{ width: 200, backgroundColor: `${this.state.colors}` }} onChange={this.handleSelectChange}>
                         <Option style={{ width: 200 }} value='Select color' disabled>Select color</Option>
                         <Option style={{backgroundColor:`#96C2F1` }} value='#96C2F1'>Blue</Option>
@@ -89,19 +88,19 @@ export default class Sticky extends Component{
                         <button style={{backgroundColor:`${this.state.colors}`}}>Add New</button>
                     </form>
 
-                    {this.state.stickies.map(sticky => {
+                    {this.state.notes.map(note => {
                         return <Draggable 
                                     onStop={this.handleOnStop}
                                     > 
                                     <div className= "post" 
-                                    style={{backgroundColor:`${sticky.background}`, top:`${sticky.top}px`,
-                                    left: `${sticky.left}px`}}
-                                    key={sticky.id} 
+                                    style={{backgroundColor:`${note.background}`, top:`${note.top}px`,
+                                    left: `${note.left}px`}}
+                                    key={note.id} 
                                         >     
                                         <div className="btn" style={{fontSize:'24px', color:'white', textAlign:'right', paddingBottom: '20px'}}>     
                                             <CloseOutlined style={{paddingLeft: '15px'}}/>
                                         </div>
-                                        <pre  className="post-text">{sticky.text}</pre> 
+                                        <pre  className="post-text">{note.text}</pre> 
                                     </div>
                                </Draggable>                              
                     })}
