@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .login-page {
   text-align: center;
   overflow: hidden;
@@ -115,12 +116,12 @@
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
-  background-image: url(https://miro.medium.com/max/2625/1*iNcobVOqJJul2vqihlGs-w.jpeg);
+  background-image: url('https://miro.medium.com/max/2625/1*iNcobVOqJJul2vqihlGs-w.jpeg');
   background-repeat: no-repeat; 
   background-size: cover; 
 }
 
-.home-page span {
+.home-page h1 span {
   color: crimson;
 }
 
@@ -223,6 +224,167 @@
   height: 250px;
 }
 
+.photo-page-header {
+  height: 130px;
+  background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  margin-bottom: -50px;
+}
+
+
+.photo-subdiv {
+  background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover; 
+}
+
+.photo-subnav {
+  font-family: cursive;
+  display: inline-flex;
+  margin-top: 100px;
+  padding-top: 20px;
+  list-style: none; 
+  text-align: left;
+}
+
+.photo-subnav-li {
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.photo-subnav-li:hover {
+  transform: scale(1.2);
+}
+
+.photo-btn {
+  font-family: cursive;
+  text-align: center;
+  margin-bottom: -10px;
+}
+
+.photo-btn button {
+  font-weight: 900;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 50%;
+  background-color: rgba(236, 216, 162, 0.6);
+  box-shadow: 10px 10px 5px grey;
+}
+
+.photo-btn button:hover {
+  transform: scale(1.2);
+}
+
+.photo-btn .switch {
+  border-radius: 50%
+}
+
+.photo-page-list {
+  background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  
+}
+
+.photo-list-card {
+  display: inline-block;
+  overflow: hidden;
+  width: 350px;
+  margin-top: 100px;
+  margin-left: 30px;
+  margin-right: 30px;
+  min-height: 350px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.photo-list-card:hover {
+  transform: scale(1.2);
+  transition: all 0.7s;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.photo-list-card:nth-child(1) {
+  transform: rotate(10deg);
+}
+
+.photo-list-card:nth-child(2) {
+  transform: rotate(5deg);
+}
+
+.photo-list-card:nth-child(3) {
+  transform: rotate(-10deg);
+}
+
+.photo-list-card:nth-child(4) {
+  transform: rotate(20deg);
+}
+
+.photo-list-card:nth-child(5) {
+  transform: rotate(-10deg);
+}
+
+.photo-list-card:nth-child(6) {
+  transform: rotate(20deg);
+}
+
+.photo-list-card:nth-child(7) {
+  transform: rotate(-5deg);
+}
+
+.photo-list-card:nth-child(8) {
+  transform: rotate(-20deg);
+}
+
+.photo-list-card:nth-child(10) {
+  transform: rotate(-20deg);
+}
+
+.photo-list-card:nth-child(12) {
+  transform: rotate(20deg);
+}
+
+.photo-upload-card {
+  background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  margin-top: -200px;
+  height: 1000px;
+  padding-top: 150px;
+  font-family: cursive;
+}
+
+.photo-upload-cancel {
+  margin-left: 1550px;
+}
+
+.view-card-page {
+  perspective: 700px;
+  height: 700px;
+}
+
+.view-card {
+  position: relative;
+  width: 120px;
+  height: 180px;
+  margin: auto;
+  transform-style: preserve-3d;
+}
+
+.view-card img {
+  position: absolute;
+  right: 20px;
+  top: 250px;
+  width: 133px;
+  height: 200px;
+  box-shadow: 0 0 5px rgb(129, 127, 127);
+  -webkit-box-reflect: below 5px 
+  -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.5) 100%);
+  border-radius: 5px;
+  transform: rotateY(0deg) translateZ(0px);
+}
 
 .note {
   display: flex;
@@ -281,8 +443,8 @@
 }
 
 .mainLayout {
-  position: relative;
-  bottom: 480px;
+  position: absolute;
+  bottom: 850px;
   left: 400px;
   right: 0;
   height: 0;
@@ -853,6 +1015,7 @@
   z-index: 1;
 }
 
+
 .add-music {
   position: absolute;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -903,5 +1066,170 @@
   box-shadow: 0 0 10px black;
   margin-top: 20px;
   margin-bottom: 20px;
- 
+}
+
+.weather-page {
+  font-family:cursive;
+  cursor: pointer;
+  margin-left: 1400px;
+  margin-top: 20px;
+  margin-bottom: -300px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 400px;
+  height: 320px;
+}
+
+.header {
+  font-size: 25px;
+  font-weight: 900;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -50px;
+  align-items: center;
+}
+
+.location {
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.change-btn {
+  cursor: pointer;
+  margin-top: -35px;
+  margin-left: 135px;
+  transform-origin: center center;
+  transition: all 0.3s ease;
+}
+
+.change-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.location-input {
+  overflow: hidden;
+  transition: height 0.3s ease;
+  display: flex;
+  margin-top: 5px;
+}
+
+.location-input input {
+    width: 255px;
+    height: 30px;
+    outline: none;
+    border-radius: 20px;
+    font-size: 15px;
+    border: #ccc;
+    padding-left: 10px;
+    transition: border 0.3s ease;
+}
+
+.location-input input:focus {
+      border: 2px solid #52516b;
+      border-right: none;
+}
+
+.header-time {
+  margin-top: 5px;
+  display: flex;
+  font-size: 20px;
+  font-size: 400;
+}
+
+.header-time .month-day {
+    display: flex;
+    margin-right: 10px;
+}
+
+.header-time .day {
+  margin-left: 10px;
+}
+
+.weather-info {
+  user-select: none;
+  width: 355px;
+  overflow: hidden;
+  padding: 20px 10px;
+  margin-top: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: height 0.3s ease;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-logo {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.main-logo img {
+      width: 100%;
+}
+.main-txt {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.now-tmp {
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: -30px;
+}  
+
+.now-tmp sup {
+      font-size: 1.5rem;
+      padding-top: 20px;
+      position: absolute;
+      top: 0;
+}
+
+.more {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-top: 30px;
+}
+
+.more svg {
+  width: 30px;
+  height: 30px;
+}
+
+.details {
+  width: 100%;
+  height: 150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  margin-top: 35px;
+}
+.details .detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details .icon {
+      width: 40%;
+      height: 100%;
+      margin-right: 4px;
+}
+
+.icon svg {
+        width: 100%;
+        height: 100%;
+}
+
+.details .txt {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 0.8rem;
 }

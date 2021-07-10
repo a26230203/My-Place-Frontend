@@ -543,7 +543,7 @@ export default class Music extends Component {
             <div className="right-folder">
                   <span onClick={() => this.addPlayList()} className="icon-folder folder"/>
                           {this.state.addMusic
-                                 ?<div>
+                                 ?<div className="add-music-div">
                                  <h4 className="upload-title">Upload Music</h4>
                                   <form className="add-music"
                                     onSubmit={(e) => this.submitAddMusic(e)}

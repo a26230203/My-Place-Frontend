@@ -19,13 +19,13 @@ function PhotoList(props) {
       <div className="photo-List">
                 <Image
                 width={300}
-                height={200}
+                height={300}
                 src={props.photo.image}
                 />
             {props.handleRemoveFromAblum
-            ? <DeleteFilled style={{fontSize: "24px"}} 
+            ? <DeleteFilled style={{fontSize: "24px", marginTop: '10px'}} 
             onClick={() => props.handleRemoveFromAblum(props.photo)}/>
-            :<DeleteFilled style={{fontSize: "24px"}} 
+            :<DeleteFilled style={{fontSize: "24px", marginTop: '20px'}} 
             onClick={() => props.handleDelete(props.photo)}/>
             }     
             {props.AddPhotoToAlbum?

@@ -42,7 +42,6 @@ export default class HomePage extends Component  {
   }
   
   render() {
-      console.log(this.state.photos)
     return (
       <div className="home-page">
         {
@@ -51,7 +50,7 @@ export default class HomePage extends Component  {
           <h1>My <span>Place</span></h1>
           <Navbar loginUser={this.props.loginUser}/>
           <Weather loginUser={this.props.loginUser}/>
-                <h4 className="recent-pohot">Recent Photos</h4>
+                <h4 className="recent-pohot">Recent Story</h4>
               <Card className="photo-card">
               <Image.PreviewGroup>
                 <div className="photo-row">
@@ -61,7 +60,6 @@ export default class HomePage extends Component  {
                         className={`img${index}` }               
                         src={photo.image}>
                         </Image>
-                        {/* <h4 className="photo-name">{photo.name}</h4> */}
                     </div>
                   })
                 }

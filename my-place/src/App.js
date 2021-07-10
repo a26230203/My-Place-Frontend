@@ -19,6 +19,8 @@ import Test from './Component/test'
 function App() {
   const [loginUser, setLoginUser] = useState({})
   const [currentJouranl, setCurrentJouranl] = useState({})
+  const [hideMusic, SetHideMusic] = useState(true)
+  const [view, setView] = useState(true)
 
   const handleLoignUser = (LoginUserObj) => {
     setLoginUser(LoginUserObj)
@@ -26,6 +28,11 @@ function App() {
 
   const handleCurrentJouranl = (jouranlObj) => {
     setCurrentJouranl(jouranlObj)
+  }
+
+  const handleViewHideMusic = () => {
+    setView(!view)
+    SetHideMusic(!hideMusic)
   }
  
 
@@ -66,7 +73,7 @@ function App() {
         />
       
       <Route exact path="/photo" component={(props) => (
-        <Photo {...props}  loginUser={loginUser}/> 
+        <Photo {...props}  loginUser={loginUser} handleViewHideMusic={handleViewHideMusic} view={view}/> 
         )} 
         />
 
@@ -88,7 +95,7 @@ function App() {
  
 
       </Switch>
-      {Object.keys(loginUser).length > 0
+      {Object.keys(loginUser).length > 0 && hideMusic
         ?<Music loginUser={loginUser}/>
         :null}
     </div>

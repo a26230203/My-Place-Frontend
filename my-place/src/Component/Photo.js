@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Upload, Modal, Form, Button, Image, Input, Select, message  } from 'antd'
-import {  PlusOutlined } from '@ant-design/icons';
+import { Card, Upload, Modal, Form, Button, Image, Input, Select, message, Switch   } from 'antd'
+import {  PlusOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { MdPhoto, MdPhotoAlbum} from "react-icons/md";
 import Navbar from './NavBar'
 import PhotoList from "./Container/PhotoList";
 
@@ -29,6 +30,8 @@ export default class Photo extends React.Component {
     upFiles:[],
     albumName: '',
     }
+
+
     componentDidMount() {
       fetch("http://localhost:3000/photos")
       .then(res => res.json())
@@ -187,79 +190,120 @@ export default class Photo extends React.Component {
       })
     }
 
+    handleVeiew = () => {
+      this.props.handleViewHideMusic()
+      
+    }
 
-
+    getImage = () => {
+      
+    }
+    
     render() {
+      
       const { previewVisible, previewImage, fileList, previewTitle } = this.state;
+      const length = this.state.photos.length
+      const deg = 360 / length
+      console.log(deg)
       return (
-      <div className="photo">
+      <div className="photo-page">
         { Object.keys(this.props.loginUser).length > 0 
           ?<div>
-            <Navbar />
-            <div className="photo-subnav">
-                <li onClick={() => this.handlClickPhoto()}>Photos</li>
-                <li onClick={() => this.handlClickAlbum()}>Album</li>
-            </div>
-            <div className="photo-btn">
-              <button onClick={() => this.handleDisplay()}>Upload Photo</button>
-              <button onClick={() => this.handleCreatalbum()}>Create Album</button>
-            </div>
-            {this.state.albumForm
-            ?<Form>
-              <Input addonBefore="Album Title:" 
-              style={{width: '500px'}} 
-              value={this.state.albumName}
-              onChange={(e) => this.handleAlbumName(e)}/>
-              <Button type="primary" shape="round" onClick={() => this.handleConfirm()}>Confirm</Button>
-              <Button type="primary" shape="round" onClick={() => this.handleConfirm()}>Cancel</Button>
-            </Form>
-            :null
-          }
-            {this.state.display
+            {this.props.view
               ?<div>
-                <Image.PreviewGroup>
-                {
-                this.state.photos.map(photo => {
-                    return <PhotoList photo={photo} key={photo.id} handleDelete={this.handleDelete} album={this.state.album} 
-                    AddPhotoToAlbum={this.AddPhotoToAlbum}/>
-                  })
-                }
-                 </Image.PreviewGroup>
+              <div className="photo-page-header"></div>
+              <Navbar className= "photo-main-nav" />
+              <div className="photo-subdiv">
+              <div className="photo-subnav">
+                  <li className="photo-subnav-li" onClick={() => this.handlClickPhoto()}>
+                  <MdPhoto style={{fontSize: 30  }}/>
+                    Photos</li>
+                  <li  className="photo-subnav-li" onClick={() => this.handlClickAlbum()}>
+                  <MdPhotoAlbum style={{fontSize: 30  }}/>
+                    Album</li>
               </div>
-            :<Form >
-            <Card title='Photo Upload'>
-                  <Input addonBefore="Album Title:" 
-                    style={{width: '500px'}} 
-                    value={this.state.albumName}
-                    placeholder="Option"
-                    onChange={(e) => this.handleAlbumName(e)}/>
-                  <Upload
-                    listType='picture-card'
-                    fileList={fileList}
-                    multiple={true}
-                    onPreview={this.handlePreview}
-                    onChange={this.handleChange}
-                    beforeUpload={this.beforeUpload}
-                  >
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8}}>Upload</div>
-                  </Upload>
-                  <Modal
-                      visible={previewVisible}
-                      title={previewTitle}
-                      footer={null}
-                      onCancel={this.handleCancel}
-                  >
-                    <img
-                      src={previewImage}
-                      alt={previewTitle}
-                      style={{ width: '100%', height: '100%'}}
-                    />
-                  </Modal>
-              <Button onClick={() => this.handleSubmit()} type='primary' >submit</Button>
-            </Card>
-            </Form>
-          } 
+              <div className="photo-btn">
+                <button className="photo-btn" onClick={() => this.handleDisplay()}>Upload Photo</button>
+                <button className="photo-btn" onClick={() => this.handleCreatalbum()}>Create Album</button>
+                <button className="switch" onClick={() => this.handleVeiew()}>3D View</button>
+              </div>
+              {this.state.albumForm
+              ?<form>
+                <div style={{marginBottom: '-30px', height: '100px'}}>
+                <CloseCircleOutlined style={{marginTop: '50px', marginLeft: '550px', fontSize: '30px' }}onClick={() => this.handleCreatalbum()} />
+                </div>
+                <Input addonBefore="Album Title:" 
+                style={{width: '400px', marginTop: '50px', marginRight: '10px', marginLeft: '100px'}} 
+                value={this.state.albumName}
+                placeholder="Album name"
+                onChange={(e) => this.handleAlbumName(e)}/>
+                <Button style={{marginTop: '50px', marginRight: '10px'}} type="primary" shape="round" onClick={() => this.handleConfirm()}>Confirm</Button>
+              </form>
+              :null
+            }
+            </div>
+              {this.state.display
+                ?<div className="photo-page-list">
+                      <Image.PreviewGroup>
+                      {
+                      this.state.photos.map(photo => {
+                          return <Card className="photo-list-card">
+                                    <PhotoList photo={photo} key={photo.id} handleDelete={this.handleDelete} album={this.state.album} 
+                                    AddPhotoToAlbum={this.AddPhotoToAlbum}/> 
+                                </Card>
+                        })
+                      }
+                      </Image.PreviewGroup>
+                </div>
+              :<Form >
+              <Card className="photo-upload-card" title='Photo Upload' headStyle={{fontSize: '40px'}}>
+                    <CloseCircleOutlined className="photo-upload-cancel" style={{fontSize: '40px'}} onClick={() => this.handleDisplay()}/>
+                    <br/>
+                    <Input addonBefore="Album Title:" 
+                      style={{width: '400px', height: '100px'}} 
+                      value={this.state.albumName}
+                      placeholder="Option"
+                      onChange={(e) => this.handleAlbumName(e)}/>
+                    <Upload
+                      listType='picture-card'
+                      fileList={fileList}
+                      multiple={true}
+                      onPreview={this.handlePreview}
+                      onChange={this.handleChange}
+                      beforeUpload={this.beforeUpload}
+                    >
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8}}>Upload</div>
+                    </Upload>
+                    <Modal
+                        visible={previewVisible}
+                        title={previewTitle}
+                        footer={null}
+                        onCancel={this.handleCancel}
+                    >
+                      <img
+                        src={previewImage}
+                        alt={previewTitle}
+                        style={{ width: '100%', height: '100%'}}
+                      />
+                    </Modal>
+                <Button style={{marginTop: '10px'}} onClick={() => this.handleSubmit()} type='primary' >submit</Button>
+              </Card>
+              </Form>
+            } 
+            </div>
+            :<div className="view-card-page">
+              <CloseCircleOutlined style={{fontSize: '30px'}} onClick={() => this.handleVeiew()}/>
+              <div className="view-card">
+              {
+                this.state.photos.map((photo, index) => {
+                    return <img className="view-card-photo" src={photo.image} style={{transform: `rotateY(${(index) * deg}deg) translateZ(420px)`}}
+                    />   
+                  })
+              }
+               </div>
+            </div>
+            }
           </div>
           :this.props.history.push('/')
         }
