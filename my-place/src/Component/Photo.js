@@ -1,9 +1,11 @@
-import React from "react";
+import React, {Component} from "react";
 import { Card, Upload, Modal, Form, Button, Image, Input, Select, message, Switch   } from 'antd'
 import {  PlusOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { MdPhoto, MdPhotoAlbum} from "react-icons/md";
 import Navbar from './NavBar'
 import PhotoList from "./Container/PhotoList";
+import Photo3D from './Container/Photo3D'
+import { Translate } from "react-bootstrap-icons";
 
 const { Option } = Select;
 
@@ -16,7 +18,7 @@ function getBase64(file) {
   });
 }
 
-export default class Photo extends React.Component {
+export default class Photo extends Component {
 
   state = {
     photos: [],
@@ -192,19 +194,10 @@ export default class Photo extends React.Component {
 
     handleVeiew = () => {
       this.props.handleViewHideMusic()
-      
     }
 
-    getImage = () => {
-      
-    }
-    
     render() {
-      
       const { previewVisible, previewImage, fileList, previewTitle } = this.state;
-      const length = this.state.photos.length
-      const deg = 360 / length
-      console.log(deg)
       return (
       <div className="photo-page">
         { Object.keys(this.props.loginUser).length > 0 
@@ -212,7 +205,7 @@ export default class Photo extends React.Component {
             {this.props.view
               ?<div>
               <div className="photo-page-header"></div>
-              <Navbar className= "photo-main-nav" />
+              <Navbar />
               <div className="photo-subdiv">
               <div className="photo-subnav">
                   <li className="photo-subnav-li" onClick={() => this.handlClickPhoto()}>
@@ -292,17 +285,7 @@ export default class Photo extends React.Component {
               </Form>
             } 
             </div>
-            :<div className="view-card-page">
-              <CloseCircleOutlined style={{fontSize: '30px'}} onClick={() => this.handleVeiew()}/>
-              <div className="view-card">
-              {
-                this.state.photos.map((photo, index) => {
-                    return <img className="view-card-photo" src={photo.image} style={{transform: `rotateY(${(index) * deg}deg) translateZ(420px)`}}
-                    />   
-                  })
-              }
-               </div>
-            </div>
+            :<Photo3D photos={this.state.photos} handleVeiew={this.handleVeiew}/>
             }
           </div>
           :this.props.history.push('/')

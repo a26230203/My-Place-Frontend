@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {  Form, Button, message, Input } from 'antd'
+import { CloseCircleOutlined } from '@ant-design/icons';
+import { MdPhoto, MdPhotoAlbum} from "react-icons/md";
 import Navbar from './NavBar'
 import AlbumList from './Container/AlbumList'
 import AlbumDetail from "./Container/AlbumDetail";
@@ -102,40 +104,46 @@ export default class Album extends Component {
 
     render() {
       return (
-      <div className="photo">
+      <div className="ablum">
         { Object.keys(this.props.loginUser).length > 0 
           ?<div>
+            <div className="album-page-header"></div>
             <Navbar />
             {this.state.displayDetail
               ?<AlbumDetail album={this.state.currentAlbum} />
-              :<div> 
-                  <div className="photo-subnav">
-                      <li onClick={() => this.handlClickPhoto()}>Photos</li>
-                      <li onClick={() => this.handlClickAlbum()}>Album</li>
-                  </div>
+              :<div className="album-page">
+                <div className="album-subnav">
+                  <li className="albun-subnav-li" onClick={() => this.handlClickPhoto()}>
+                  <MdPhoto style={{fontSize: 30  }}/>
+                    Photos</li>
+                  <li  className="photo-subnav-li" onClick={() => this.handlClickAlbum()}>
+                  <MdPhotoAlbum style={{fontSize: 30  }}/>
+                    Album</li>
+              </div>
                   <div className="photo-btn">
 
                     <button onClick={() => this.handleCreatalbum()}>Create Album</button>
                   </div>
-                      {this.state.album.map(album => {
-                        return  <AlbumList key={album.id} loginUser={this.props.loginUser} photos={this.state.photos} album={album} 
-                        handleDelete={this.handleDelete} handleClickCoverAlbum={this.handleClickCoverAlbum}/>
-                      })
-                      }
+                  {this.state.albumForm
+                    ?<div>
+                    <CloseCircleOutlined className="album-creat-btn" style={{fontSize: '30px'}} onClick={() => this.handleCreatalbum()}/>
+                    <Form className="ablum-create" > 
+                      <Input addonBefore="Album Title:" 
+                      style={{width: '500px'}} 
+                      value={this.state.albumName}
+                      onChange={(e) => this.handleAlbumName(e)}/>
+                      <Button className="album-creat-confrim" type="primary" shape="round" onClick={() => this.handleConfirm()}>Confirm</Button>
+                    </Form>
+                      </div>
+                    :null
+                  }
+                  {this.state.album.map(album => {
+                    return  <AlbumList className="album-list" key={album.id} loginUser={this.props.loginUser} photos={this.state.photos} album={album} 
+                    handleDelete={this.handleDelete} handleClickCoverAlbum={this.handleClickCoverAlbum}/>
+                  })
+                  }
                 </div>  
             }     
-            {this.state.albumForm
-            ?<Form>
-              <Input addonBefore="Album Title:" 
-              style={{width: '500px'}} 
-              value={this.state.albumName}
-              onChange={(e) => this.handleAlbumName(e)}/>
-              <Button type="primary" shape="round" onClick={() => this.handleConfirm()}>Confirm</Button>
-              <Button type="primary" shape="round" onClick={() => this.handleConfirm()}>Cancel</Button>
-            </Form>
-            :null
-          }
-
           </div>
           :this.props.history.push('/')
         }
