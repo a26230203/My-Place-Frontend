@@ -34,7 +34,8 @@ function App() {
     setView(!view)
     SetHideMusic(!hideMusic)
   }
- 
+  
+  console.log(currentJouranl)
 
   return (
     <Router>
@@ -59,7 +60,7 @@ function App() {
         />
 
       <Route exact path="/journaldraft" component={(props) => (
-        <JournalDraft {...props} loginUser={loginUser}/> 
+        <JournalDraft {...props} loginUser={loginUser} currentJouranl={currentJouranl} handleCurrentJouranl={handleCurrentJouranl}/> 
         )} 
         />
       <Route exact path="/journaldetail" component={(props) => (

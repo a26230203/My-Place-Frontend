@@ -71,7 +71,7 @@ export default class Music extends Component {
       }
       const bufferWidth = 500 * (bufferTime / audio.duration);
       const playWidth = 500 * (audio.currentTime / audio.duration);
-      if(this.processPlayed || this.processItem.style){
+      if(this.processPlayed.style || this.processItem.style){
         if (!processItemMove) {
           this.processPlayed.style.width = `${playWidth}px`;
           this.processItem.style.left = `${playWidth - 4}px`;
@@ -134,9 +134,9 @@ export default class Music extends Component {
     const offsetPercentage = offsetWidth / this.process.offsetWidth;
     const currentTime = this.audio.duration * offsetPercentage;
     if (key == "click" || key == "dragMove") {
-      this.processPlayed.style.width = `${offsetWidth}px`;
-      this.processItem.style.left = `${offsetWidth - 4}px`;
-      this.setState({ currentTime: this.getTime(currentTime) });
+        this.processPlayed.style.width = `${offsetWidth}px`;
+        this.processItem.style.left = `${offsetWidth - 4}px`;
+        this.setState({ currentTime: this.getTime(currentTime) });
     }
     if (key == "dragEnd" || key == "click") {
       this.audio.currentTime = currentTime;

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Editor } from '@tinymce/tinymce-react'
 import { Input } from 'antd';
+import { CloseCircleOutlined } from '@ant-design/icons';
+import { IoIosJournal  } from "react-icons/io";
+import { RiDraftFill } from "react-icons/ri";
 import Navbar from './NavBar'
 import JournalList from './Container/JournalList'
 
@@ -22,13 +25,14 @@ export default class Journal extends Component {
     fetch("http://localhost:3000/journal_drafts")
     .then(res => res.json())
     .then(journalDrafts => this.setState({journalDrafts}))
-
   }
 
 
   handleDisplay = () => {
     this.setState({
-      display: !this.state.display
+      display: !this.state.display,
+      content: "",
+      title: "",
     })
   }
 
@@ -49,7 +53,8 @@ export default class Journal extends Component {
     .then(res => res.json())
     .then(() => {
       this.setState({
-        content: ""
+        content: "",
+        title: ""
       })
       this.componentDidMount()
       this.handleDisplay() 
@@ -93,6 +98,10 @@ export default class Journal extends Component {
     this.props.history.push('/journaldraft')
   }
 
+  handJournalClick = () => {
+    this.props.history.push('/journal')
+  }
+
   handleEditorChnage = (content) => {
       this.setState({content})
   }
@@ -102,54 +111,67 @@ export default class Journal extends Component {
     return (
       <div>
         { Object.keys(this.props.loginUser).length > 0 
-          ?<div>
+          ?<div className="journal-page">
+            <div className="journal-header"></div>
             <Navbar />
-              <div className="sub navbar">
-                  <li onClick={() => this.handDraftClick()}>Draft({this.state.journalDrafts.length})</li>
+              <div className="journal-sub-navbar">
+                  <li onClick={() => this.handJournalClick()}><IoIosJournal style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Journal</li>
+                  <li onClick={() => this.handDraftClick()}><RiDraftFill style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Draft({this.state.journalDrafts.length})</li>
               </div>
-
+                
           {this.state.display
-            ?<div className="journal">
-            <button onClick={() => this.handleDisplay()}>Write Your Journal</button>
+            ?<div className="journal-list-container">
+              <hr class="solid"></hr>
+            <button className="journal-list-btn" onClick={() => this.handleDisplay()}>Write Your Journal</button>
+              <hr class="solid"></hr>
                 {this.state.journals.length !== 0 
-                ? this.state.journals.map((journal, index) => {
+                ?<div className="journal-list-content">
+                  {this.state.journals.map((journal, index) => {
                   return <JournalList journal={journal} key={index} handleDelete={this.handleDelete} history={this.props.history} handleCurrentJouranl={this.props.handleCurrentJouranl}/>})
-                :<div>
-                  Here is your jourany begin
+                  }  
+                  </div>
+                :<div className="journal-no-content">
+                  <h4>Your Story begin here</h4>
                 </div>
                 }
             </div>
-            :<div className="Editor">
-            <h2>Title</h2>
-             <Input className="title"
-                style={{width: 800}}
-                placeholder="Wirte your title here"
-                type="text"
-                value = {this.state.title}
-                  onChange={(e) => this.setState({title: e.target.value})}>
-              </Input>
-            <Editor 
-              apiKey="ubuznhjw161y8fw2jyqsp5wsyl72c4d7pnjdvwi9rm7c0m8s"
-              inline={false}
-              initialValue={this.state.content}
-              init={{
-                  width: 1046,
-                  min_height: 716,
-                  branding: false,
-                  plugins: 'preview searchreplace autolink directionality visualblocks visualchars fullscreen image link template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave autoresize formatpainter',
-                  toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs | link image',
-                  fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
-                  placeholder: "Write your content here",
-                  relative_urls: false,
-                  }}
-                  onEditorChange={this.handleEditorChnage}
-                />  
-                    <div>
-                      <button onClick={() => this.handlePublish()}>Publish</button>
-                      <button onClick={() => this.handleDisplay()}>Cancel</button>
-                      <button onClick={() => this.handleSave()}>Save as Draft</button>
-                    </div>
-                </div>
+            :<div className="new-jouranl">
+                <CloseCircleOutlined className="new-jouranl-btn" style={{fontSize: '24px'}} onClick={() => this.handleDisplay()}/>  
+                <h2>New Journal</h2>
+                <Input className="title"
+                    addonBefore="Title: "
+                    placeholder="Wirte your title here"
+                    type="text"
+                    value = {this.state.title}
+                      onChange={(e) => this.setState({title: e.target.value})}>
+                  </Input>
+                <Editor 
+                  className="editor"
+                  apiKey="ubuznhjw161y8fw2jyqsp5wsyl72c4d7pnjdvwi9rm7c0m8s"
+                  inline={false}
+                  Value={this.state.content}
+                  init={{
+                      content_style: "body { margin: 20px ; }",
+                      width: 800,
+                      min_height: 716,
+                      branding: false,
+                      plugins: 'preview searchreplace autolink directionality visualblocks visualchars fullscreen image link template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists imagetools textpattern help emoticons autosave autoresize formatpainter',
+                      toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs | link image',
+                      fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
+                      placeholder: "Write your content here",
+                      relative_urls: false,
+                      element_format : 'xhtml',
+                      forced_root_block : "",
+                      statusbar: false,
+                      }}
+                      onEditorChange={this.handleEditorChnage}
+                    />  
+                  <div className="btn">
+                    <button  className="btn-publish" onClick={() => this.handlePublish()}>Publish</button>
+                    <button  className="btn-cancel" onClick={() => this.handleDisplay()}>Cancel</button>
+                    <button className="btn-save"  onClick={() => this.handleSave()}>Save as Draft</button>
+                  </div>
+              </div>
           }
           </div>
            :this.props.history.push('/')
@@ -159,3 +181,4 @@ export default class Journal extends Component {
     );
   }
 }
+

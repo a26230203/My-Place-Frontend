@@ -36,17 +36,22 @@ export default class Photo3D extends Component {
         const deg = 360 / length
         const {minX, minY} = this.state
         return(
-            <div className="view-card-page" >
-              <CloseCircleOutlined className="view-btn" style={{fontSize: '30px'}} onMouseDown={() => this.props.handleVeiew()}/>
-              <div className="view-card" onMouseDown={(e) => this.handleMouseDown(e)}  onMouseMove={(e) => this.handleOnMouseMove(e)} style={{transform: `rotateX(${-minY}deg) rotateY(${-minX}deg)` , transition: '3s'}}>
-              {
-                this.props.photos.map((photo, index) => {
-                    return<img className="view-card-photo" src={photo.image} style={{transform: `rotateY(${index * deg}deg) translateZ(350px)`, transition: `1s ${(length - 1 - index) * 0.1}s`}} draggable = "false"
-                    key={index}   
-                    />
-                  })
-              }
-               </div>
+            <div>
+                {this.props.view
+                ?null
+                :<div className="view-card-page" >
+                <CloseCircleOutlined className="view-btn" style={{fontSize: '30px'}} onMouseDown={() => this.props.handleVeiew()}/>
+                <div className="view-card" onMouseDown={(e) => this.handleMouseDown(e)}  onMouseMove={(e) => this.handleOnMouseMove(e)} style={{transform: `rotateX(${-minY}deg) rotateY(${-minX}deg)` , transition: '3s'}}>
+                {
+                    this.props.photos.map((photo, index) => {
+                        return<img className="view-card-photo" src={photo.image} style={{transform: `rotateY(${index * deg}deg) translateZ(350px)`, transition: `1s ${(length - 1 - index) * 0.1}s`}} draggable = "false"
+                        key={index}   
+                        />
+                    })
+                }
+                </div>
+                </div>
+                }
             </div>
         )
     }

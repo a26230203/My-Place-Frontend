@@ -285,7 +285,7 @@ export default class Photo extends Component {
               </Form>
             } 
             </div>
-            :<Photo3D photos={this.state.photos} handleVeiew={this.handleVeiew}/>
+            :<Photo3D photos={this.state.photos} handleVeiew={this.handleVeiew} view={this.props.view}/>
             }
           </div>
           :this.props.history.push('/')
