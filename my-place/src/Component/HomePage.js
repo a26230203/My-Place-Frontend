@@ -42,6 +42,7 @@ export default class HomePage extends Component  {
   }
   
   render() {
+    const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
     return (
       <div className="home-page">
         {
@@ -52,22 +53,27 @@ export default class HomePage extends Component  {
           <Weather className="weather" loginUser={this.props.loginUser}/>
                 <h4 className="recent-pohot">Recent Story</h4>
               <Card className="photo-card">
-              <Image.PreviewGroup>
-                <div className="photo-row">
-                  {this.state.photos.map((photo, index) => {
-                    return<div 
-                    className={`photo-colum${index}`} 
-                    key={index}
-                    >
-                        <Image
-                        className={`img${index}` }               
-                        src={photo.image}>
-                        </Image>
-                    </div>
-                  })
-                }
-              </div>
-              </Image.PreviewGroup>
+              {userPhoto.length > 0
+                ?<Image.PreviewGroup>
+                  <div className="photo-row">
+                    {userPhoto.map((photo, index) => {
+                      return<div 
+                      className={`photo-colum${index}`} 
+                      key={index}
+                      >
+                          <Image
+                          className={`img${index}` }               
+                          src={photo.image}>
+                          </Image>
+                      </div>
+                    })
+                  }
+                </div>
+                </Image.PreviewGroup>
+              : <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png' 
+                  style={{width: '450px',height: '450px'}}
+                />
+              }
             </Card>
         </div>
         : this.props.history.push('/')

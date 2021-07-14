@@ -4,6 +4,8 @@ import {  PlusOutlined } from '@ant-design/icons';
 import { BsPeopleCircle } from "react-icons/bs";
 import { GiSmartphone ,GiModernCity } from "react-icons/gi";
 import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
+import { RiLock2Line } from "react-icons/ri";
+import { FiEye } from "react-icons/fi";
 import ImgCrop from 'antd-img-crop';
 import NavBar from "./NavBar";
 
@@ -30,6 +32,7 @@ export default class Profile extends Component{
         zipCode: this.props.loginUser.post_code,
         newpassword: '',
         confirmPassword: '',
+        viewPassword: false,
         fileList: [],
         upFiles: [], 
         previewVisible: false,
@@ -81,6 +84,12 @@ export default class Profile extends Component{
       previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
     });
   };
+
+  handleViewPassword = () => {
+      this.setState({
+        viewPassword: !this.state.viewPassword
+      })
+  }
 
   //handle submit upload
   handleSubmit = () => {
@@ -226,15 +235,14 @@ handleResetPassowrd = () => {
     render() {
         const { fileList, previewImage, previewTitle, previewVisible, users } = this.state
         const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
-        const phoneformat = `${users.map(user => `(${user.phone.slice(0, 3)}) ${user.phone.slice(3, 6)}-${user.phone.slice(6, 10)}`)}`
-        
+        console={users}
         return(
             <div>
                  {
                  Object.keys(this.props.loginUser).length > 0
                  ?<div className="profile-page">
                      <div className="profile-page-header">
-                        {userPhoto.map(photo => {
+                        {userPhoto.slice(-12).map(photo => {
                             const rotate = Math.floor(Math.random() * 40 - 20)
                             return <img
                                     key={photo.id}
@@ -279,7 +287,7 @@ handleResetPassowrd = () => {
                                 return<div key={user.id}> 
                                     <div className="about-name" ><BsPeopleCircle style={{fontSize: '40', marginBottom: "5"}}/> { user.name.toUpperCase() }</div>
                                     <div className="about-icon">
-                                        <div className="about-phone" > <GiSmartphone style={{fontSize: '24', marginBottom: "5"}} /> Phone: { phoneformat }</div>
+                                        <div className="about-phone" > <GiSmartphone style={{fontSize: '24', marginBottom: "5"}} /> Phone: { users.map(user => `(${user.phone.slice(0, 3)}) ${user.phone.slice(3, 6)}-${user.phone.slice(6, 10)}`) }</div>
                                         <div className="about-email"> <HiOutlineMail style={{fontSize: '24', marginBottom: "5", marginRight: '5px'}} />Email: { user.email.toUpperCase() }</div>
                                         <div className="about-add"> <HiOutlineLocationMarker style={{fontSize: '24', marginBottom: "5", marginRight: '5px'}} />Address: { user.address.toUpperCase() }</div>
                                         <div className="about-zip"> <GiModernCity style={{fontSize: '24', marginBottom: "5", marginRight: '5px'}} /> Zip Code: { user.post_code }</div>
@@ -322,6 +330,7 @@ handleResetPassowrd = () => {
                                 style={{width: '400px'}}
                                 addonBefore="Name: "
                                 value={this.state.name}
+                                prefix={<BsPeopleCircle style={{marginRight: '5px'}}/>}
                                 onChange={(e) => this.handleNameOnchange(e)}    
                                 >
                                 </Input>
@@ -329,6 +338,7 @@ handleResetPassowrd = () => {
                                 style={{width: '400px'}}
                                 addonBefore="Address: "
                                 value={this.state.address}
+                                prefix={<GiSmartphone style={{marginRight: '5px'}}/>}
                                 onChange={(e) => this.handleAddressOnchange(e)}
                                 >
                                 </Input>
@@ -336,6 +346,7 @@ handleResetPassowrd = () => {
                                 style={{width: '400px'}}
                                 addonBefore="Email: "
                                 value={this.state.email}
+                                prefix={<HiOutlineMail style={{marginRight: '5px'}}/>}
                                 onChange={(e) => this.handleEmailOnchange(e)}
                                 >
                                 </Input>
@@ -343,6 +354,7 @@ handleResetPassowrd = () => {
                                 style={{width: '400px'}}
                                 addonBefore="Phone: "
                                 value={this.state.phone}
+                                prefix={<HiOutlineLocationMarker style={{marginRight: '5px'}}/>}
                                 onChange={(e) => this.handlePhoneOnchange(e)}
                                 >
                                 </Input>
@@ -350,6 +362,7 @@ handleResetPassowrd = () => {
                                 style={{width: '400px'}}
                                 addonBefore="Zip Code: "
                                 value={this.state.zipCode}
+                                prefix={<GiModernCity style={{marginRight: '5px'}}/>}
                                 onChange={(e) => this.handleZipCodeOnchange(e)}
                                 >
                                 </Input>
@@ -364,10 +377,12 @@ handleResetPassowrd = () => {
                                 style={{width: '400px'}}
                                 addonBefore="New password: "
                                 value={this.state.newpassword}
+                                prefix={<RiLock2Line style={{marginRight: '5px'}}/>}
                                 onChange={(e) => this.handleNewPassword(e)}
-                                type="password"
+                                type={this.state.viewPassword? "text" :"password"}
                                 >
                                 </Input>
+                                <FiEye className="rest-view-password" onClick={() => this.handleViewPassword()}/>
                                 <div className="rest-passowrd-warning">
                                 <li className={this.state.newpassword.length >= 8? 'password-match' : 'password-not-match' }>Must contain 8 or more characters</li>
                                 <li className={this.state.newpassword.match(/\d+/g) ? 'password-match' : 'password-not-match' }>Must contain a digit</li>
@@ -378,10 +393,12 @@ handleResetPassowrd = () => {
                                 style={{width: '400px', marginBottom: '10px'}}
                                 addonBefore="Confirm Password: "
                                 value={this.state.confirmPassword}
-                                type="password"
+                                prefix={<RiLock2Line style={{marginRight: '5px'}}/>}
+                                type={this.state.viewPassword? "text" :"password"}
                                 onChange={(e) => this.handleConfirmPassword(e)}
                                 >
                                 </Input>
+                                <FiEye className="rest-view-password" onClick={() => this.handleViewPassword()}/>
                                 {this.state.newpassword !== this.state.confirmPassword
                                 ? <p className="password-not-match">The Confirm password confirmation does not match</p>
                                 : null

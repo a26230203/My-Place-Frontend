@@ -199,6 +199,7 @@ export default class Photo extends Component {
     render() {
       const { previewVisible, previewImage, fileList, previewTitle } = this.state;
       const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
+      const useralbum = this.state.album.filter(album => album.user_id === this.props.loginUser.id)
       return (
       <div className="photo-page">
         { Object.keys(this.props.loginUser).length > 0 
@@ -211,10 +212,10 @@ export default class Photo extends Component {
               <div className="photo-subnav">
                   <li className="photo-subnav-li" onClick={() => this.handlClickPhoto()}>
                   <MdPhoto style={{fontSize: 30  }}/>
-                    Photos</li>
+                    Photos({userPhoto.length})</li>
                   <li  className="photo-subnav-li" onClick={() => this.handlClickAlbum()}>
                   <MdPhotoAlbum style={{fontSize: 30  }}/>
-                    Album</li>
+                    Album({useralbum.length})</li>
               </div>
               <div className="photo-btn">
                 <button className="photo-btn" onClick={() => this.handleDisplay()}>Upload Photo</button>

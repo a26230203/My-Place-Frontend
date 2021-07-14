@@ -109,7 +109,6 @@ export default class Notes extends Component{
             })
         }
     }
-
     handleCancleEdit = () => {
         this.setState({
             edit: !this.state.edit,
@@ -127,11 +126,11 @@ export default class Notes extends Component{
                 text: this.state.editTyping,
             }),    
         })
-        .then(res => res.json())
-        .then(() => {
+        .then(res => {
             this.componentDidMount()
             this.handleCancleEdit()
         })
+
     }
 
     handleOnStop = (e, v, noteObj) => {
@@ -158,6 +157,8 @@ export default class Notes extends Component{
 
     render() {
         const {currentNote, editTyping , dragNot} = this.state
+        const userNote = this.state.notes.filter(note => note.user_id === this.props.loginUser.id)
+        
         return(
             <div>
                 { Object.keys(this.props.loginUser).length > 0 
@@ -180,7 +181,7 @@ export default class Notes extends Component{
                                     onChange={(e) => this.handleOnchange(e)}></textarea>
                                     <button style={{backgroundColor:`${this.state.colors}`}}>Post New</button>
                                 </form>
-                                {this.state.notes.length > 0 ?this.state.notes.map(note => {
+                                {userNote.length > 0 ? userNote.map(note => {
                                 return<Draggable 
                                                 cancel=".btn"
                                                 cancel={this.state.edit ? ".post" : ".btn"}

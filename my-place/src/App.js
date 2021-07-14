@@ -41,7 +41,6 @@ function App() {
     SetHideMusic(boolean)
   }
   
-  console.log(loginUser)
   return (
     <Router>
     <div className="App">

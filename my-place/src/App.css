@@ -675,8 +675,8 @@
   font-family: cursive;
   width: 300px;
   height: 35px;
-  margin-top: 100px;
-  margin-left: 750px;
+  margin-top: 310px;
+  margin-left: 380px;
   box-shadow: -15px 5px 25px 0 rgba(153, 153, 153, 0.993);
 }
 
@@ -1792,10 +1792,12 @@
   border-radius: 5px;
 }
 
-.sub-nav .about:hover {
+.sub-nav .about-btn:hover {
   transform: scale(1.1);
   background-color: rgba(124, 190, 187, 0.5);
-} 
+}
+
+
 
 .sub-nav .edit {
   cursor: pointer;
@@ -1903,6 +1905,7 @@
   padding-left: 300px;
 }
 
+
 .profile-page-upload {
   background-image: url('https://64.media.tumblr.com/d4006cb8dd5dc19accc233bbd9e71408/tumblr_nzcrawPYQe1uiv7pro1_1280.jpg');
   background-repeat: no-repeat; 
@@ -1952,3 +1955,44 @@
   color: rgba(253, 1, 1, 0.65);
 }
 
+.rest-view-password {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.rest-view-password:hover {
+  transform: scale(1.2);
+}
+
+.singup {
+  background-image: url('https://images.unsplash.com/photo-1487260211189-670c54da558d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGUlMjB0aGVtZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  min-height: 1050px;
+  width: 1000px;
+  margin-left: 400px;
+  padding-top: 70px;
+  padding-left: 250px;
+  line-height: 60px;
+}
+
+.signup-form {
+  width: 500px;
+}
+
+.signup-form h1{
+    font-size: 30px;
+    box-shadow: -50px 30px 80px 0px rgba(47, 47, 47, 10.99);
+}
+
+.signup-passowrd-warning {
+  width: 500px;
+  font-size: 15px;
+  margin-left: 85px;
+  text-align: left;
+  line-height: 30px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}

@@ -109,6 +109,7 @@ export default class Album extends Component {
 
     render() {
       const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
+      const useralbum = this.state.album.filter(album => album.user_id === this.props.loginUser.id)
       return (
       <div className="ablum">
         { Object.keys(this.props.loginUser).length > 0 
@@ -121,10 +122,10 @@ export default class Album extends Component {
                 <div className="album-subnav">
                   <li className="albun-subnav-li" onClick={() => this.handlClickPhoto()}>
                   <MdPhoto style={{fontSize: 30  }}/>
-                    Photos</li>
+                    Photos({userPhoto.length})</li>
                   <li  className="photo-subnav-li" onClick={() => this.handlClickAlbum()}>
                   <MdPhotoAlbum style={{fontSize: 30  }}/>
-                    Album</li>
+                    Album({useralbum.length})</li>
               </div>
                   <div className="photo-btn">
 
@@ -143,7 +144,7 @@ export default class Album extends Component {
                       </div>
                     :null
                   }
-                  {this.state.album.map(album => {
+                  {useralbum.map(album => {
                     return  <AlbumList className="album-list" key={album.id} loginUser={this.props.loginUser} photos={userPhoto} album={album} 
                     handleDelete={this.handleDelete} handleClickCoverAlbum={this.handleClickCoverAlbum}/>
                   })

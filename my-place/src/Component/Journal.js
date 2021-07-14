@@ -124,9 +124,9 @@ export default class Journal extends Component {
                 
           {this.state.display
             ?<div className="journal-list-container">
-              <hr class="solid"></hr>
+              <hr className="solid"></hr>
             <button className="journal-list-btn" onClick={() => this.handleDisplay()}>Write Your Journal</button>
-              <hr class="solid"></hr>
+              <hr className="solid"></hr>
                 {userJournal.length !== 0 
                 ?<div className="journal-list-content">
                   {userJournal.map((journal, index) => {
