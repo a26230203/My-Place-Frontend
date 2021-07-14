@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Image, message, Select  } from 'antd';
+import { Image, message, Select, Card  } from 'antd';
+import { CloseCircleOutlined } from '@ant-design/icons';
 import PhotoList from './PhotoList';
 
 const { Option } = Select;
@@ -29,18 +30,27 @@ export default class AlbumDetail extends Component{
           this.componentDidMount()
       })
     }
+
    render() {
         const albumPhoto = this.state.photos.filter(photo => photo.album_id == this.props.album.id)
     return (
-      <div className="photo-List">
-            <Image.PreviewGroup>
-                {albumPhoto.map(photo => {
-                    return <PhotoList photo={photo} handleRemoveFromAblum={this.handleRemoveFromAblum}/> 
-                })
-                }
-            </Image.PreviewGroup>
+        <div className="album-photo-page-list">
+        <CloseCircleOutlined  style={{fontSize: "30px", marginLeft: '1600px ', marginButtom: '50px  '}} onClick={() => this.props.handleCancleAlbum()}/>
+            <div>
+              <Image.PreviewGroup>
 
-      </div>
+                  {albumPhoto.map(photo => {
+                      const rotate = Math.floor(Math.random() * 40 - 20)
+                      return <Card style={{transform: `rotate(${rotate}deg)`}} className="photo-list-card">
+                                <PhotoList photo={photo} key={photo.id} handleDelete={this.handleDelete} album={this.state.album} 
+                                AddPhotoToAlbum={this.AddPhotoToAlbum}
+                                key={photo.id}/> 
+                            </Card>
+                      })
+                  }
+              </Image.PreviewGroup>
+            </div>
+        </div>
     );
     }
   }

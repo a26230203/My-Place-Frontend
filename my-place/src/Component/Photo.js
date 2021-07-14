@@ -111,14 +111,14 @@ export default class Photo extends Component {
         formData.append('name', file.name);
         formData.append('user_id', this.props.loginUser.id);
         formData.append('album_id', album_id);
-         fetch("http://localhost:3000/photoupload", {
-           method: "POST",
-           body: formData
-         })
-         .then(res => res.json())
-         .then(() => {
-           this.componentDidMount()
-         })
+      })
+      fetch("http://localhost:3000/photoupload", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(() => {
+        this.componentDidMount()
         });
       this.setState({
         fileList: [],
@@ -198,6 +198,7 @@ export default class Photo extends Component {
 
     render() {
       const { previewVisible, previewImage, fileList, previewTitle } = this.state;
+      const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
       return (
       <div className="photo-page">
         { Object.keys(this.props.loginUser).length > 0 
@@ -205,7 +206,7 @@ export default class Photo extends Component {
             {this.props.view
               ?<div>
               <div className="photo-page-header"></div>
-              <Navbar />
+              <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
               <div className="photo-subdiv">
               <div className="photo-subnav">
                   <li className="photo-subnav-li" onClick={() => this.handlClickPhoto()}>
@@ -239,10 +240,12 @@ export default class Photo extends Component {
                 ?<div className="photo-page-list">
                       <Image.PreviewGroup>
                       {
-                      this.state.photos.map(photo => {
-                          return <Card className="photo-list-card">
+                      userPhoto.map(photo => {
+                            const rotate = Math.floor(Math.random() * 40 - 20)
+                          return <Card style={{transform: `rotate(${rotate}deg)`}} className="photo-list-card">
                                     <PhotoList photo={photo} key={photo.id} handleDelete={this.handleDelete} album={this.state.album} 
-                                    AddPhotoToAlbum={this.AddPhotoToAlbum}/> 
+                                    AddPhotoToAlbum={this.AddPhotoToAlbum}
+                                    key={photo.id}/> 
                                 </Card>
                         })
                       }
@@ -280,12 +283,12 @@ export default class Photo extends Component {
                         style={{ width: '100%', height: '100%'}}
                       />
                     </Modal>
-                <Button style={{marginTop: '10px'}} onClick={() => this.handleSubmit()} type='primary' >submit</Button>
+                <Button style={{marginTop: '10px'}} onClick={() => this.handleSubmit()} type='primary'>Upload</Button>
               </Card>
               </Form>
             } 
             </div>
-            :<Photo3D photos={this.state.photos} handleVeiew={this.handleVeiew} view={this.props.view}/>
+            :<Photo3D photos={userPhoto} handleVeiew={this.handleVeiew} view={this.props.view}/>
             }
           </div>
           :this.props.history.push('/')

@@ -79,8 +79,13 @@ export default class Album extends Component {
         currentAlbum: albumObj
       })
     } 
-   
 
+    handleCancleAlbum = () => {
+      this.setState({
+        displayDetail: !this.state.displayDetail, 
+      })
+    }
+   
     //Delete album
     handleDelete =(albumObj) => {
       fetch(`http://localhost:3000/albums/${albumObj.id}`, {
@@ -103,14 +108,15 @@ export default class Album extends Component {
       }
 
     render() {
+      const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
       return (
       <div className="ablum">
         { Object.keys(this.props.loginUser).length > 0 
           ?<div>
             <div className="album-page-header"></div>
-            <Navbar />
+            <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
             {this.state.displayDetail
-              ?<AlbumDetail album={this.state.currentAlbum} />
+              ?<AlbumDetail album={this.state.currentAlbum} handleCancleAlbum={this.handleCancleAlbum}/>
               :<div className="album-page">
                 <div className="album-subnav">
                   <li className="albun-subnav-li" onClick={() => this.handlClickPhoto()}>
@@ -138,7 +144,7 @@ export default class Album extends Component {
                     :null
                   }
                   {this.state.album.map(album => {
-                    return  <AlbumList className="album-list" key={album.id} loginUser={this.props.loginUser} photos={this.state.photos} album={album} 
+                    return  <AlbumList className="album-list" key={album.id} loginUser={this.props.loginUser} photos={userPhoto} album={album} 
                     handleDelete={this.handleDelete} handleClickCoverAlbum={this.handleClickCoverAlbum}/>
                   })
                   }

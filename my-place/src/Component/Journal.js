@@ -14,7 +14,8 @@ export default class Journal extends Component {
     journals: [],
     journalDrafts: [],
     title: "",
-    content: ""
+    content: "",
+    upload: []
   } 
 
   componentDidMount() {
@@ -106,17 +107,19 @@ export default class Journal extends Component {
       this.setState({content})
   }
 
+
   render() {
-    var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const userJournal = this.state.journals.filter(journal => journal.user_id === this.props.loginUser.id)
+    const userJouranlDraft = this.state.journalDrafts.filter(journal => journal.user_id === this.props.loginUser.id) 
     return (
       <div>
         { Object.keys(this.props.loginUser).length > 0 
           ?<div className="journal-page">
             <div className="journal-header"></div>
-            <Navbar />
+            <Navbar  loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
               <div className="journal-sub-navbar">
                   <li onClick={() => this.handJournalClick()}><IoIosJournal style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Journal</li>
-                  <li onClick={() => this.handDraftClick()}><RiDraftFill style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Draft({this.state.journalDrafts.length})</li>
+                  <li onClick={() => this.handDraftClick()}><RiDraftFill style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Draft({userJouranlDraft.length})</li>
               </div>
                 
           {this.state.display
@@ -124,9 +127,9 @@ export default class Journal extends Component {
               <hr class="solid"></hr>
             <button className="journal-list-btn" onClick={() => this.handleDisplay()}>Write Your Journal</button>
               <hr class="solid"></hr>
-                {this.state.journals.length !== 0 
+                {userJournal.length !== 0 
                 ?<div className="journal-list-content">
-                  {this.state.journals.map((journal, index) => {
+                  {userJournal.map((journal, index) => {
                   return <JournalList journal={journal} key={index} handleDelete={this.handleDelete} history={this.props.history} handleCurrentJouranl={this.props.handleCurrentJouranl}/>})
                   }  
                   </div>
@@ -155,15 +158,17 @@ export default class Journal extends Component {
                       width: 800,
                       min_height: 716,
                       branding: false,
-                      plugins: 'preview searchreplace autolink directionality visualblocks visualchars fullscreen image link template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists imagetools textpattern help emoticons autosave autoresize formatpainter',
-                      toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs | link image',
+                      plugins: 'preview searchreplace autolink directionality visualblocks visualchars fullscreen image link template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists imagetools textpattern help emoticons autosave autoresize formatpainter paste',
+                      toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs | link',
                       fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
                       placeholder: "Write your content here",
                       relative_urls: false,
                       element_format : 'xhtml',
                       forced_root_block : "",
                       statusbar: false,
-                      }}
+                      paste_as_text: true,
+                      entities: 'raw', 
+                    }}
                       onEditorChange={this.handleEditorChnage}
                     />  
                   <div className="btn">

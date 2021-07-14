@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-function NavBar() {
+function NavBar(props) {
     return (
       <div className="Main-navbar">
         <NavLink
@@ -10,6 +10,7 @@ function NavBar() {
             fontWeight: "bold",
             color: "red",
         }}
+        onClick={() => props.handlehideMusic(true)}
         >
         Home
         </NavLink>
@@ -21,6 +22,7 @@ function NavBar() {
             fontWeight: "bold",
             color: "red",
         }}
+        onClick={() => props.handlehideMusic(true)}
         >
         Photo
         </NavLink>
@@ -32,8 +34,33 @@ function NavBar() {
             fontWeight: "bold",
             color: "red",
         }}
+        onClick={() => props.handlehideMusic(true)}
         >
         Journal
+        </NavLink>
+
+        <NavLink
+        className="nav-bar"
+        to="/notes"
+        activeStyle={{
+            fontWeight: "bold",
+            color: "red",
+        }}
+        onClick={() => props.handlehideMusic(true)}
+        >
+        Notes
+        </NavLink>
+
+        <NavLink
+        className="nav-bar"
+        to="/profile"
+        activeStyle={{
+            fontWeight: "bold",
+            color: "red",
+        }}
+        onClick={() => props.handlehideMusic(false)}
+        >
+        Profile
         </NavLink>
       </div>
     );

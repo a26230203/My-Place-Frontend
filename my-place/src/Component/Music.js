@@ -37,10 +37,12 @@ export default class Music extends Component {
     };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.currentMusic.id !== this.state.currentMusic.id) {
-      this.resetProcess();
-      if (this.state.isPause) {
-        this.onPlay();
+    if(this.state.musicList.length > 0) {
+      if (prevState.currentMusic.id !== this.state.currentMusic.id) {
+        this.resetProcess();
+        if (this.state.isPause) {
+          this.onPlay();
+        }
       }
     }
   }
@@ -49,10 +51,13 @@ export default class Music extends Component {
 
     fetch('http://localhost:3000/musics')
       .then(res => res.json())
-      .then(musicList => this.setState({
-          musicList: musicList,
-          currentMusic: musicList[0]
-      }))
+      .then(musicList => {
+        const userMusicList = musicList.filter(musicList => musicList.user_id === this.props.loginUser.id)
+        this.setState({
+          musicList: userMusicList,
+          currentMusic: userMusicList[0]
+      })
+    })
 
     const audio = this.audio;
     audio.addEventListener("canplay", () => {
@@ -71,15 +76,15 @@ export default class Music extends Component {
       }
       const bufferWidth = 500 * (bufferTime / audio.duration);
       const playWidth = 500 * (audio.currentTime / audio.duration);
-      if(this.processPlayed.style || this.processItem.style){
-        if (!processItemMove) {
-          this.processPlayed.style.width = `${playWidth}px`;
-          this.processItem.style.left = `${playWidth - 4}px`;
-          this.setState({
-            currentTime: this.getTime(currentTime)
-          });
-        }
-    }
+        if(this.processPlayed.style || this.processItem.style){
+          if (!processItemMove) {
+            this.processPlayed.style.width = `${playWidth}px`;
+            this.processItem.style.left = `${playWidth - 4}px`;
+            this.setState({
+              currentTime: this.getTime(currentTime)
+              });
+            }
+          }
       this.processBuffered.style.width = `${bufferWidth}px`;
     });
 
@@ -479,7 +484,7 @@ export default class Music extends Component {
         break;
     }
     return (
-      <div className="mainLayout">
+      <div  className= {this.props.hideMusic ?"mainLayout" :"hideMainLayout"}>
         <div
           className="mainContent"
           onMouseMove={this.onProcessItemMouseMove}
@@ -673,7 +678,10 @@ export default class Music extends Component {
                     </ul>
                   </div >
                   <div className="music-cover">
-                        <img src={currentMusic.img} />
+                        {this.state.musicList.length > 0
+                          ?<img src={currentMusic.img} />
+                          :<img src='' />
+                        }
                   </div>
                 </div>
               </div>

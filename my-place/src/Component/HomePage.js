@@ -48,14 +48,17 @@ export default class HomePage extends Component  {
         Object.keys(this.props.loginUser).length > 0
         ?<div>
           <h1>My <span>Place</span></h1>
-          <Navbar loginUser={this.props.loginUser}/>
-          <Weather loginUser={this.props.loginUser}/>
+          <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+          <Weather className="weather" loginUser={this.props.loginUser}/>
                 <h4 className="recent-pohot">Recent Story</h4>
               <Card className="photo-card">
               <Image.PreviewGroup>
                 <div className="photo-row">
                   {this.state.photos.map((photo, index) => {
-                    return<div className={`photo-colum${index}`}>
+                    return<div 
+                    className={`photo-colum${index}`} 
+                    key={index}
+                    >
                         <Image
                         className={`img${index}` }               
                         src={photo.image}>

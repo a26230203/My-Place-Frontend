@@ -36,7 +36,7 @@ export default class Photo3D extends Component {
         const deg = 360 / length
         const {minX, minY} = this.state
         return(
-            <div>
+            <div className="mian-view-card">
                 {this.props.view
                 ?null
                 :<div className="view-card-page" >

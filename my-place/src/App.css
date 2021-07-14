@@ -113,7 +113,7 @@
   text-align: left;
   color: white;
   margin-bottom: 0;
-  padding-top: 20px;
+  padding-top: 25px;
   padding-bottom: 20px;
   padding-left: 20px;
   background-image: url('https://miro.medium.com/max/2625/1*iNcobVOqJJul2vqihlGs-w.jpeg');
@@ -176,18 +176,19 @@
 
 
 .home-page .photo-card {
-  width: 600px;
-  height: 500px;
+  width: 550px;
+  height: 570px;
   left: 600px;
   padding-top: 5px;
   margin-top: 170px;
   margin-bottom: -120px;
   margin-left: -20px;
-
+  box-shadow: -30px 30px 40px 8px rgba(47, 47, 47, 0.993);
+  border-radius: 5px;
 }
 
 .home-page .photo-card:hover {
-  box-shadow: 10px 10px 5px grey;
+  transform: scale(1.1);
 }
 
 .home-page .recent-pohot {
@@ -224,8 +225,23 @@
   height: 250px;
 }
 
+.profile-page-upload .ant-upload.ant-upload-select-picture-card {
+  width: 200px;
+  height: 200px;
+}
+
+.profile-page-upload .ant-upload.ant-upload-select-picture-card {
+  width: 200px;
+  height: 200px;
+}
+
+.profile-page-upload .ant-upload-list-picture-card-container {
+  width: 200px;
+  height: 200px;
+}
+
 .photo-page-header {
-  height: 130px;
+  height: 145px;
   background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
   background-repeat: no-repeat; 
   background-size: cover;
@@ -284,7 +300,9 @@
 .photo-page-list {
   background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
   background-repeat: no-repeat; 
-  background-size: cover; 
+  background-size: cover;
+  padding-bottom: 70px;
+  min-height: 920px; 
   
 }
 
@@ -292,6 +310,7 @@
   display: inline-block;
   overflow: hidden;
   width: 350px;
+  height: 430px;
   margin-top: 100px;
   margin-left: 30px;
   margin-right: 30px;
@@ -306,43 +325,43 @@
 }
 
 .photo-list-card:nth-child(1) {
-  transform: rotate(10deg);
+  transform: rotate(10deg) !important; 
 }
 
 .photo-list-card:nth-child(2) {
-  transform: rotate(5deg);
+  transform: rotate(5deg) !important;
 }
 
 .photo-list-card:nth-child(3) {
-  transform: rotate(-10deg);
+  transform: rotate(-10deg) !important;
 }
 
 .photo-list-card:nth-child(4) {
-  transform: rotate(20deg);
+  transform: rotate(20deg) !important;
 }
 
 .photo-list-card:nth-child(5) {
-  transform: rotate(-10deg);
+  transform: rotate(-10deg) !important;
 }
 
 .photo-list-card:nth-child(6) {
-  transform: rotate(20deg);
+  transform: rotate(20deg) !important;
 }
 
 .photo-list-card:nth-child(7) {
-  transform: rotate(-5deg);
+  transform: rotate(-5deg) !important;
 }
 
 .photo-list-card:nth-child(8) {
-  transform: rotate(-20deg);
+  transform: rotate(-20deg) !important;
 }
 
 .photo-list-card:nth-child(10) {
-  transform: rotate(-20deg);
+  transform: rotate(-20deg) !important;
 }
 
 .photo-list-card:nth-child(12) {
-  transform: rotate(20deg);
+  transform: rotate(20deg) !important;
 }
 
 .photo-upload-card {
@@ -353,11 +372,13 @@
   height: 1000px;
   padding-top: 150px;
   font-family: cursive;
+
 }
 
 .photo-upload-cancel {
   margin-left: 1550px;
 }
+
 
 .view-card-page {
   perspective: 750px;
@@ -365,7 +386,7 @@
   background-image: url('https://mocah.org/uploads/posts/5420348-water-tree-reflection-forest-island-mist-fog-blue-monochrome-outdoors-nature-woodland-ray-scenic-outdoor-heaven-cloud-flare-open-ocean-png-images.jpg');
   background-repeat: no-repeat; 
   background-size: cover;
-  padding-top: 50px; 
+  padding-top: 50px;
 }
 
 .view-btn {
@@ -426,8 +447,8 @@
  .album-page {
   position: relative;
   display: inline-block;
-  width: 1830px;
-  height: 920px;
+  width: 1822px;
+  min-height: 920px;
   background-image: url("https://images-na.ssl-images-amazon.com/images/I/61kMhm14f9L._AC_SL1500_.jpg");
   background-repeat: no-repeat; 
   background-size: cover;
@@ -508,6 +529,17 @@
   margin-left: 20px;
 }
 
+
+.album-photo-page-list {
+  background-image: url('https://image.architonic.com/img_pro2-4/131/6569/craftwand-produkt-modular-wood-wall-system-1-b.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  padding-bottom: 70px;
+  min-height: 920px; 
+  padding-top: 100px;
+}
+
+
 .journal-page {
   background-image: url("https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dGFibGUlMjBzdXJmYWNlfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
   background-repeat: no-repeat; 
@@ -515,8 +547,8 @@
 }
 
 .journal-header {
-  height: 90px;
-  width: 1832px;
+  height: 80px;
+  width: 1818px;
   background-image: url("https://lunginstitute.com/wp-content/uploads/2015/12/120115_Blog_InLineImages-1.jpg");
   background-repeat: no-repeat; 
   background-size: cover;
@@ -538,7 +570,7 @@
   font-family: cursive;
   cursor: pointer;
   display: inline-flex;
-  margin-top: 50px;
+  margin-top: 60px;
   padding-top: 20px;
   list-style: none; 
   text-align: left;
@@ -564,11 +596,13 @@
 
 .journal-list-container {
   width: 1100px;
+  min-height: 1200px;
   margin-left: 350px;
+  margin-top: -10px;
   background-image: url("https://cdn.wallpapersafari.com/70/54/yvbX0E.jpg");
   background-repeat: no-repeat; 
   background-size: cover;
-
+  box-shadow: -30px 30px 40px 8px rgba(47, 47, 47, 0.993);
 }
 
 .journal-list {
@@ -726,12 +760,71 @@
   transform: scale(1.2);
 } 
 
+.note-page-header {
+  height: 95px;
+  background-image: url("https://image.freepik.com/free-photo/colorful-blank-sticky-notes-cork-board_23-2147890055.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
+
+
+.journal-detail-list-container {
+  width: 1100px;
+  min-height: 1200px;
+  margin-left: 350px;
+  margin-top: 20px;
+  padding: 110px;
+  background-image: url("https://cdn.wallpapersafari.com/70/54/yvbX0E.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;
+  box-shadow: -30px 30px 40px 8px rgba(47, 47, 47, 0.993);
+
+}
+
+.journal-detail-list-container .sub {
+  font-family: cursive;
+  display: inline-flex;
+  margin-right: 300px;
+  padding-top: 20px;
+  list-style: none; 
+  text-align: left;
+}
+
+.journal-detail-list-container .sub-title {
+  margin-left: 100px;
+  width: 300px;
+}
+
+.journal-detail-list-container .sub-date {
+  margin-left: 300px;
+  margin-top: 25px;
+}
+
+.journal-detail-list-detial {
+  margin-top: 40px;
+  margin-left: 150px;
+  width: 600px;
+}
+
+.journal-detail-list-detial p{
+  margin-top: 40px;
+  line-height: 45px;
+  text-align: justify;
+  width: 600px;
+}
+
+.journal-detail-list-detial p::first-line {
+  text-indent: 50px
+}
 
 .note {
   display: flex;
   flex-direction: column;
   text-align: center;
   width: 250px;
+  margin-left: 700px;
+  margin-top: 50px;
+  box-shadow: -30px 30px 40px 8px rgba(47, 47, 47, 0.993);
 }
 
 .note textarea {
@@ -750,7 +843,6 @@
   cursor: pointer;
   border: 0;
   outline: none;
-
 }
 
 .note button:hover {
@@ -758,34 +850,81 @@
   color: white;
 }
 
+.note-page-container {
+  font-family: cursive;
+  background-image: url("https://images-na.ssl-images-amazon.com/images/I/91G8asH3H7L._AC_SL1500_.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;
+  padding-top:50px;
+  height: 1200px;
+}
+
+.note-page-container .selector{
+  cursor: pointer;  
+}
+
 .post {
   position: absolute;
   cursor: pointer;
   background-size: cover;
-  width: 300px;
-  height: 300px;
-  padding: 20px;
+  width: 250px;
+  height: 250px;
+  padding: 10px;
   margin: 0;
+  margin-bottom: 50px;
+  box-shadow: -30px 30px 40px 8px rgba(47, 47, 47, 0.993);
 }
 
+.drag {
+  transform: scale(1.1);
+}
+
+.post:hover {
+    transform: scale(1.1);
+}
+
+
 .post text {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: cursive;
   height: 100%;
   width: 100%;
   white-space: pre-wrap;
   overflow-y: scroll;
 }
 
-.note-editor {
-  resize: none;
-  font-family: Arial, Helvetica, sans-serif;
+
+.post .btn-cancel {
+  margin-left: 20px;
+}
+
+.edit-textarea {
+  position: absolute;
+  cursor: pointer;
+  background-size: cover;
+  width: 252px;
+  height: 210px;
+  padding: 20px;
+  margin: 0;
   white-space: pre-wrap;
   overflow-y: scroll;
+  overflow: hidden;
+  outline: none;
 }
 
 .mainLayout {
   position: absolute;
   bottom: 850px;
+  left: 400px;
+  right: 0;
+  height: 0;
+  width: 55%;
+  padding-left: 50px;
+  zoom: 1;
+}
+
+.hideMainLayout {
+  position: absolute;
+  bottom: 1500px;
   left: 400px;
   right: 0;
   height: 0;
@@ -1411,14 +1550,18 @@
 
 .weather-page {
   font-family:cursive;
-  cursor: pointer;
   margin-left: 1400px;
   margin-top: 20px;
   margin-bottom: -300px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
   width: 400px;
   height: 320px;
 }
+
+.weather-page:hover {
+  transform: scale(1.1);
+}
+
 
 .header {
   font-size: 25px;
@@ -1498,7 +1641,9 @@
   flex-direction: column;
   align-items: center;
   transition: height 0.3s ease;
+
 }
+
 
 .main {
   display: flex;
@@ -1574,3 +1719,236 @@
       align-items: flex-start;
       font-size: 0.8rem;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fffffe; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(240, 132, 9);
+}
+
+.profile-page-header {
+  background-image: url('https://shop.static.ingka.ikea.com/category-images/Category_wall-shelves.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  padding-top: 40px;
+  padding-bottom: 20px;
+  height: 260px;
+}
+
+.profile-page-header-img {
+  width: 150px;
+  height: 180px;
+  border: 12px solid #fff;
+  border-bottom: 50px solid #fff;
+  box-shadow: -10px 30px 40px 8px rgba(47, 47, 47, 0.993);
+}
+
+.profile-page .sub-nav {
+  background-image: url('https://wallpaperaccess.com/full/1616109.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  font-family: cursive;
+  list-style: none;
+  width: 15%;
+  text-align: left;
+  padding-left: 50px;
+  padding-top: 50px;
+  min-height: 800px;
+  margin-bottom: -800px;  
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: -10px 30px 40px 8px rgba(47, 47, 47, 0.993);
+  border-top: 0px 
+}
+
+.profile-page  .sub-nav-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 50px;
+  margin-right: 60px;
+  box-shadow: -12px 5px 40px 8px rgba(47, 47, 47, 0.993);
+}
+
+.profile-page  .sub-nav-img:hover {
+  transform: scale(1.1);
+}
+
+.sub-nav .about-btn {
+  cursor: pointer;
+  text-align: center  ;
+  height: 35px;
+  padding-top: 5px;
+  color: white;
+  border: 3px solid rgb(155, 154, 154);
+  margin-top: 30px;
+  margin-right: 50px;
+  box-shadow: -12px 8px 50px 3px rgba(47, 47, 47, 0.993);
+  border-radius: 5px;
+}
+
+.sub-nav .about:hover {
+  transform: scale(1.1);
+  background-color: rgba(124, 190, 187, 0.5);
+} 
+
+.sub-nav .edit {
+  cursor: pointer;
+  text-align: center;
+  height: 35px;
+  padding-top: 5px;
+  color: white;
+  border: 3px solid rgb(155, 154, 154);
+  margin-top: 50px;
+  margin-right: 50px;
+  box-shadow: -12px 8px 50px 3px rgba(47, 47, 47, 0.993);
+  border-radius: 5px;
+}
+
+.sub-nav .edit:hover {
+  transform: scale(1.1);
+  background-color: rgba(124, 190, 187, 0.5);
+} 
+
+.sub-nav .reset {
+  cursor: pointer;
+  text-align: center;
+  height: 35px;
+  padding-top: 5px;
+  color: white;
+  border: 3px solid rgb(155, 154, 154);
+  margin-top: 50px;
+  margin-right: 50px;
+  box-shadow: -12px 8px 50px 3px rgba(47, 47, 47, 0.993);
+  border-radius: 5px;
+}
+
+.sub-nav .reset:hover {
+  transform: scale(1.1);
+  background-color: rgba(124, 190, 187, 0.5);
+} 
+
+.about {
+  background-image: url('https://64.media.tumblr.com/d4006cb8dd5dc19accc233bbd9e71408/tumblr_nzcrawPYQe1uiv7pro1_1280.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  width: 1540px;
+  min-height: 800px;
+  margin-left: 274px;
+  padding-top: 50px;
+  padding-right: 250px;
+}
+
+.about .about-img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: -12px 8px 50px 10px rgba(47, 47, 47, 0.993);
+}
+
+.about .about-img-div {
+  height: 50px;
+  width: 800px;
+  margin-left: 250px;
+  margin-top: -40px;
+  background-color: rgba(153, 153, 153, 0.7);
+  border-radius: 12px;
+  box-shadow: -12px 8px 80px 30px rgba(47, 47, 47, 0.993);
+  z-index: -1;
+}
+
+.about .about-img-div-div {
+  height: 30px;
+  width: 800px;
+  margin-left: 250px;
+  margin-top: -30px;
+  background-color: rgba(34, 34, 34, 0.7);
+  border-radius: 4px;
+  z-index: -1;
+}
+
+.about .about-img-div-div-div {
+  height: 30px;
+  width: 800px;
+  margin-left: 250px;
+  margin-top: -40px;
+  border-radius: 4px;
+  background-color: rgba(88, 83, 83, 0.5);
+  z-index: -1;
+}
+
+.about-name {
+  font-weight: 600;
+  margin-top: 50px;
+  font-size: 45px;
+  width: 800px;
+  margin-left: 250px;
+  border-radius: 5px;
+  box-shadow: -12px 8px 50px 5px rgba(47, 47, 47, 10.99);
+}
+
+.about-icon {
+  width: 800px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 250px;
+  margin-top: 100px;
+  line-height: 50px;
+  text-align: left;
+  padding-left: 300px;
+}
+
+.profile-page-upload {
+  background-image: url('https://64.media.tumblr.com/d4006cb8dd5dc19accc233bbd9e71408/tumblr_nzcrawPYQe1uiv7pro1_1280.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  width: 1540px;
+  min-height: 800px;
+  margin-left: 274px;
+  padding-top: 50px;
+  padding-right: 250px;
+}
+
+.profile-page-upload .edit {
+  display:table-caption;
+  margin-top: 50px;
+  line-height: 70px;
+  margin-left: 450px;
+  cursor: pointer;
+}
+
+
+.rest-passowrd-page {
+  background-image: url('https://64.media.tumblr.com/d4006cb8dd5dc19accc233bbd9e71408/tumblr_nzcrawPYQe1uiv7pro1_1280.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  width: 1540px;
+  min-height: 800px;
+  margin-left: 274px;
+  padding-top: 200px;
+  padding-right: 250px;
+}
+
+.rest-passowrd-warning {
+  width: 600px;
+  font-size: 15px;
+  margin-left: 500px;
+  text-align: left;
+  line-height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.password-match {
+  color: rgba(40, 158, 4, 0.65);
+}
+
+.password-not-match {
+  color: rgba(253, 1, 1, 0.65);
+}
+

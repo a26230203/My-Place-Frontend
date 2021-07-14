@@ -22,6 +22,8 @@ function SignUp(props) {
             post_code: zipCode
         }
 
+        console.log(newUser)
+
         fetch('http://localhost:3000/signup', {
             method: "POST",
             headers: {

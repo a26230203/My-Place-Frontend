@@ -23,9 +23,9 @@ function PhotoList(props) {
                 src={props.photo.image}
                 />
             {props.handleRemoveFromAblum
-            ? <DeleteFilled style={{fontSize: "24px", marginTop: '10px'}} 
+            ? <DeleteFilled style={{fontSize: "24px", marginTop: '30px', marginRight: '20px'}} 
             onClick={() => props.handleRemoveFromAblum(props.photo)}/>
-            :<DeleteFilled style={{fontSize: "24px", marginTop: '20px'}} 
+            :<DeleteFilled style={{fontSize: "24px", marginTop: '40px' , marginRight: '20px'}} 
             onClick={() => props.handleDelete(props.photo)}/>
             }     
             {props.AddPhotoToAlbum?
