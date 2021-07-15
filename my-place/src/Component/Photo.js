@@ -207,7 +207,7 @@ export default class Photo extends Component {
             {this.props.view
               ?<div>
               <div className="photo-page-header"></div>
-              <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+              <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic} handleLoignUser={this.props.handleLoignUser}/>
               <div className="photo-subdiv">
               <div className="photo-subnav">
                   <li className="photo-subnav-li" onClick={() => this.handlClickPhoto()}>

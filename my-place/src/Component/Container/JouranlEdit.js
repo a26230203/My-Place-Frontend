@@ -19,6 +19,32 @@ export default class JournalEdit extends Component {
     .then(journalDrafts => this.setState({journalDrafts}))
   }
 
+
+  handlePublish = () => {
+    const newJouranl = {
+      user_id: this.props.loginUser.id,
+      title: this.state.title,
+      content: this.state.content
+    }
+
+    fetch("http://localhost:3000/journals", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newJouranl),
+    })
+    .then(res => res.json())
+    .then(() => {
+      this.setState({
+        content: "",
+        title: ""
+      })
+      this.componentDidMount()
+      this.props.history.push('/journal') 
+    })
+  }
+
   saveToJournal = () => {
     const updateJouranl = {
       user_id: this.props.loginUser.id,
@@ -136,6 +162,7 @@ export default class JournalEdit extends Component {
                         onEditorChange={this.handleEditorChnage}
                       />  
                     <div className="btn">
+                      <button  className="btn-publish" onClick={() => this.handlePublish()}>Publish</button>
                       {typeOfJournal.length > 0 
                         ?  <button className="btn-save"  onClick={() => this.saveToJournalDraft()}>Save</button>
                         :  <button className="btn-save"  onClick={() => this.saveToJournal()}>Save</button>

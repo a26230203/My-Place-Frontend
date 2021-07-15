@@ -42,7 +42,7 @@ function Login (props) {
             <label  onClick={() => handleSignupClick()}>Sign up</label>
                 <div className="login">
                     <form className="login" onSubmit={(e) => handleLogin(e)}>
-                        <h1>Welcome Back</h1>
+                        <h1>My Place</h1>
                         <input type="text" value={username} placeholder="Please enter your username" onChange={(e) => setUsername(e.target.value)} /> 
                         <input type="password" value={password} placeholder="Please enter your password" onChange={(e) => setPassword(e.target.value)}/>
                         <input type="submit" className="btn" value="Login"/>

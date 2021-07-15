@@ -1,7 +1,9 @@
   
 import React, { useEffect, useState } from 'react';
-import { AiOutlineDoubleLeft, AiOutlineDashboard, AiOutlineCloud, AiFillEye, AiOutlineSwap } from "react-icons/ai";
-import { WiThermometer, WiStrongWind, WiThermometerInternal } from "react-icons/wi";
+import { AiOutlineDoubleLeft, AiFillEye, AiOutlineSwap } from "react-icons/ai";
+import { IoManOutline, IoSpeedometer } from "react-icons/io5";
+import { RiWindyFill, RiSunCloudyFill } from "react-icons/ri";
+import { WiHumidity } from "react-icons/wi";
 
 const api = {
   key: "56f5e6f96b876ed60f2717fd26dd3b1e",
@@ -115,42 +117,42 @@ function Weather() {
               </div>
               <div className="details">
                     <div  className="detail">
-                      <div className="icon"><WiThermometer /></div>
+                      <div className="icon"><IoManOutline /></div>
                       <div className="txt">
                         <div className="detail-title">Feel Like</div>
                         <div className="detail-value">{Math.round((weather.main.feels_like * 9 / 5) + 32)}<sup>&deg;F</sup></div>
                       </div>
                     </div>
                     <div  className="detail">
-                      <div className="icon"><WiStrongWind /></div>
+                      <div className="icon"><RiWindyFill /></div>
                       <div className="txt">
                         <div className="detail-title">Wind</div>
                         <div className="detail-value">{`${Math.round(weather.wind.speed)}km/h`}</div>
                       </div>
                     </div>
                     <div  className="detail">
-                      <div className="icon"><WiThermometerInternal  /></div>
+                      <div className="icon"><WiHumidity /></div>
                       <div className="txt">
                         <div className="detail-title">Humidity</div>
                         <div className="detail-value">{`${weather.main.humidity}%`}</div>
                       </div>
                     </div>
                     <div  className="detail">
-                      <div className="icon"><AiFillEye  /></div>
+                      <div className="icon"><AiFillEye /></div>
                       <div className="txt">
                         <div className="detail-title">Visibility</div>
                         <div className="detail-value">{`${weather.visibility}km`}</div>
                       </div>
                     </div>
                     <div  className="detail">
-                      <div className="icon"><AiOutlineDashboard   /></div>
+                      <div className="icon"><IoSpeedometer /></div>
                       <div className="txt">
                         <div className="detail-title">Pressure</div>
                         <div className="detail-value">{`${weather.main.pressure}hPa`}</div>
                       </div>
                     </div>
                     <div  className="detail">
-                      <div className="icon"><AiOutlineCloud    /></div>
+                      <div className="icon"><RiSunCloudyFill /></div>
                       <div className="txt">
                         <div className="detail-title">Cloud</div>
                         <div className="detail-value">{`${weather.clouds.all}%`}</div>

@@ -116,7 +116,7 @@ export default class Journal extends Component {
         { Object.keys(this.props.loginUser).length > 0 
           ?<div className="journal-page">
             <div className="journal-header"></div>
-            <Navbar  loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+            <Navbar  loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic} handleLoignUser={this.props.handleLoignUser}/>
               <div className="journal-sub-navbar">
                   <li onClick={() => this.handJournalClick()}><IoIosJournal style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Journal</li>
                   <li onClick={() => this.handDraftClick()}><RiDraftFill style={{fontSize: '24px', marginRight: '5px', marginBottom: '3px'}} />Draft({userJouranlDraft.length})</li>

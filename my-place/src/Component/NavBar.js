@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom'
 
 function NavBar(props) {
+
+    const handleLogout = () => {
+        localStorage.clear()
+        props.handleLoignUser('')
+    }
+
     return (
       <div className="Main-navbar">
         <NavLink
@@ -62,6 +68,20 @@ function NavBar(props) {
         >
         Profile
         </NavLink>
+
+        <NavLink
+        className="nav-bar"
+        to="/"
+        activeStyle={{
+            fontWeight: "bold",
+            color: "red",
+        }}
+        onClick={() => handleLogout()}
+        >
+        Logout
+        </NavLink>
+
+        
       </div>
     );
   }

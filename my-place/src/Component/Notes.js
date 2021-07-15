@@ -156,7 +156,7 @@ export default class Notes extends Component{
     }   
 
     render() {
-        const {currentNote, editTyping , dragNot} = this.state
+        const {currentNote, editTyping} = this.state
         const userNote = this.state.notes.filter(note => note.user_id === this.props.loginUser.id)
         
         return(
@@ -164,7 +164,7 @@ export default class Notes extends Component{
                 { Object.keys(this.props.loginUser).length > 0 
                     ?<div className="note-page">
                             <div className="note-page-header"></div>
-                            <NavBar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+                            <NavBar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic} handleLoignUser={this.props.handleLoignUser}/>
                             <div className="note-page-container">
                                 <form onSubmit={(e) => this.addStikcy(e)} className="note">
                                     <select className="selector" defaultValue='Select color' style={{ width: 252, backgroundColor: `${this.state.colors}`, }} onChange={this.handleSelectChange}>
@@ -174,7 +174,6 @@ export default class Notes extends Component{
                                     <option style={{backgroundColor:`#FFFF99` }} value='#FFFF99'>Yellow</option>
                                     <option style={{backgroundColor:`#FFCC00` }} value='#FFCC00'>Orange</option>
                                     </select> 
-
                                     <textarea placeholder="Wirte your thought here!"
                                     style={{backgroundColor: `${this.state.colors}`}} 
                                     value={this.state.userTyping}

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Image, Card } from 'antd'
+import { Image, Card, Calendar  } from 'antd'
 import Navbar from './NavBar'
 import Weather from "./Weather";
 
@@ -43,14 +43,16 @@ export default class HomePage extends Component  {
   
   render() {
     const userPhoto = this.state.photos.filter(photo => photo.user_id === this.props.loginUser.id)
+    const userjournal = this.state.journals.filter(journal => journal.user_id === this.props.loginUser.id)
     return (
       <div className="home-page">
         {
         Object.keys(this.props.loginUser).length > 0
         ?<div>
           <h1>My <span>Place</span></h1>
-          <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+          <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic} handleLoignUser={this.props.handleLoignUser}/>
           <Weather className="weather" loginUser={this.props.loginUser}/>
+
                 <h4 className="recent-pohot">Recent Story</h4>
               <Card className="photo-card">
               {userPhoto.length > 0
@@ -74,7 +76,27 @@ export default class HomePage extends Component  {
                   style={{width: '450px',height: '450px'}}
                 />
               }
+              <div className="site-calendar">
+              </div>
+              {userjournal.length > 0 
+              ?<div className="journal-div">
+                    {userjournal.map(journal => {
+                      return <div className="jounral-detial" key={journal.id}>
+                                {journal.title !== ""
+                                ?<div className="journal-detial-title">{journal.title}</div>
+                                :<div>No Title</div>
+                                }
+                                 <p className="jounral-detial-p">{journal.content}</p>
+                            </div>
+                    })
+                    }
+              </div>   
+              :null
+              }
             </Card>
+              <div className="site-calendar">
+               <Calendar fullscreen={false}/>  
+              </div>
         </div>
         : this.props.history.push('/')
         }

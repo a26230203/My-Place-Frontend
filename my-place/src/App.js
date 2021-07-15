@@ -56,17 +56,18 @@ function App() {
         />
 
       <Route exact path="/homepage" component={(props) => (
-        <HomePage {...props} loginUser={loginUser} handlehideMusic={handlehideMusic}/> 
+        <HomePage {...props} loginUser={loginUser} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser}/> 
         )} 
         />
 
       <Route exact path="/journal" component={(props) => (
-        <Journal {...props} loginUser={loginUser} handleCurrentJouranl={handleCurrentJouranl} handlehideMusic={handlehideMusic}/> 
+        <Journal {...props} loginUser={loginUser} handleCurrentJouranl={handleCurrentJouranl} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser}/> 
         )} 
         />
 
       <Route exact path="/journaldraft" component={(props) => (
-        <JournalDraft {...props} loginUser={loginUser} currentJouranl={currentJouranl} handleCurrentJouranl={handleCurrentJouranl} handlehideMusic={handlehideMusic}/> 
+        <JournalDraft {...props} loginUser={loginUser} currentJouranl={currentJouranl} handleCurrentJouranl={handleCurrentJouranl} handlehideMusic={handlehideMusic}
+        handleLoignUser={handleLoignUser}/> 
         )} 
         />
       <Route exact path="/journaldetail" component={(props) => (
@@ -80,22 +81,22 @@ function App() {
         />
       
       <Route exact path="/photo" component={(props) => (
-        <Photo {...props}  loginUser={loginUser} handleViewHideMusic={handleViewHideMusic} view={view} handlehideMusic={handlehideMusic}/> 
+        <Photo {...props}  loginUser={loginUser} handleViewHideMusic={handleViewHideMusic} view={view} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser}/> 
         )} 
         />
 
       <Route exact path="/album" component={(props) => (
-        <Album {...props}  loginUser={loginUser} handlehideMusic={handlehideMusic}/> 
+        <Album {...props}  loginUser={loginUser} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser}/> 
         )} 
         />
 
       <Route exact path="/notes" component={(props) => (
-        <Notes {...props} loginUser={loginUser} handlehideMusic={handlehideMusic}/> 
+        <Notes {...props} loginUser={loginUser} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser}/> 
         )} 
         />
 
       <Route exact path="/profile" component={(props) => (
-        <Profile {...props} loginUser={loginUser} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser}/> 
+        <Profile {...props} loginUser={loginUser} handlehideMusic={handlehideMusic} handleLoignUser={handleLoignUser} handleLoignUser={handleLoignUser}/> 
         )} 
         />
 

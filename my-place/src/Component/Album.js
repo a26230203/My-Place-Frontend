@@ -115,7 +115,7 @@ export default class Album extends Component {
         { Object.keys(this.props.loginUser).length > 0 
           ?<div>
             <div className="album-page-header"></div>
-            <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+            <Navbar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic} handleLoignUser={this.props.handleLoignUser}/>
             {this.state.displayDetail
               ?<AlbumDetail album={this.state.currentAlbum} handleCancleAlbum={this.handleCancleAlbum}/>
               :<div className="album-page">

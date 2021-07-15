@@ -139,29 +139,32 @@ handleFormSubmit = () => {
 handleResetPassowrd = () => {
     const {newpassword, confirmPassword, name, address, email, phone, zipCode} = this.state
 
-    if(newpassword === confirmPassword && newpassword !== '')
-    fetch(`http://localhost:3000/users/${this.props.loginUser.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            password: newpassword,
-            name: name,
-            address: address,
-            email: email,
-            phone: phone,
-            zipCode: zipCode,
-        }),
-    })
-    .then(res => {
-        message.success('Password is changed')
-        this.componentDidMount()
-        this.setState({
-            newpassword: '',
-            confirmPassword: ''
+    if(newpassword === confirmPassword && newpassword !== '') {
+        fetch(`http://localhost:3000/users/${this.props.loginUser.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                password: newpassword,
+                name: name,
+                address: address,
+                email: email,
+                phone: phone,
+                zipCode: zipCode,
+            }),
         })
-    })
+        .then(res => {
+            message.success('Password is changed')
+            this.componentDidMount()
+            this.setState({
+                newpassword: '',
+                confirmPassword: ''
+            })
+        })
+    }else {
+        message.error("Please Try Again")
+    }
 } 
     handleAbout = () => {
         this.setState({
@@ -254,7 +257,7 @@ handleResetPassowrd = () => {
                             })
                         }
                      </div>
-                    <NavBar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic}/>
+                    <NavBar loginUser={this.props.loginUser} handlehideMusic={this.props.handlehideMusic} handleLoignUser={this.props.handleLoignUser}/>
                     <div className="sub-nav">
                             {users.map(user => {
                                 if(user.img !== ''){
